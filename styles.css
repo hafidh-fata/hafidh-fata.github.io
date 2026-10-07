@@ -618,3 +618,74 @@ header{background:rgba(255,255,255,.965)}
  .credential-detail{min-height:auto}
  .credential-detail h3{font-size:22px}
 }
+
+/* === research & publications hub === */
+nav a[aria-current="page"]:after{display:none!important;content:none!important}
+.research-hub-hero{align-items:start}
+.research-hub-hero>div:last-child{max-width:850px}
+.research-hub-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px;max-width:790px}
+.research-hub-paths>a{display:grid;grid-template-columns:38px minmax(0,1fr) 22px;gap:13px;align-items:center;padding:15px 16px;border:1px solid var(--line);border-radius:9px;background:linear-gradient(145deg,rgba(16,45,70,.025),rgba(198,154,59,.045));transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.research-hub-paths>a:hover{transform:translateY(-2px);border-color:rgba(198,154,59,.62);background:rgba(198,154,59,.055)}
+.hub-path-symbol{display:grid;place-items:center;width:36px;height:36px;border:1px solid rgba(198,154,59,.5);border-radius:50%;font:italic 17px var(--serif);color:var(--navy)}
+.research-hub-paths small{display:block;font-size:8px;letter-spacing:.13em;color:var(--gold);margin-bottom:2px}
+.research-hub-paths strong{display:block;font:17px/1.2 var(--serif);font-weight:400;color:var(--navy)}
+.research-hub-paths em{font-style:normal;color:var(--gold)}
+.research-hub-stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:790px;margin-top:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.research-hub-stats>span{padding:13px 14px;border-left:1px solid var(--line)}
+.research-hub-stats>span:first-child{border-left:0;padding-left:0}
+.research-hub-stats strong{display:block;font:24px/1 var(--serif);font-weight:400;color:var(--navy)}
+.research-hub-stats small{display:block;margin-top:5px;font-size:8px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.research-subnav{position:sticky;top:80px;z-index:12;display:flex;gap:6px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);background:rgba(255,255,255,.94);backdrop-filter:blur(10px)}
+.research-subnav a{font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid transparent;color:var(--muted)}
+.research-subnav a:hover{color:var(--navy);border-color:rgba(198,154,59,.45);background:rgba(198,154,59,.055);transform:none}
+.segment-intro{display:grid;grid-template-columns:54px minmax(0,1fr);gap:18px;align-items:start;margin-bottom:34px}
+.segment-kicker{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(198,154,59,.52);border-radius:50%;font:italic 18px var(--serif);color:var(--navy)}
+.segment-intro small{display:block;font-size:9px;letter-spacing:.14em;color:var(--gold);margin-bottom:4px}
+.segment-intro h2{font-size:34px;margin:0 0 7px}
+.segment-intro p{margin:0;color:var(--muted);font-size:13px;max-width:630px}
+.publication-segment-intro{padding:58px 0 22px;border-bottom:0}
+.publication-segment-intro .segment-intro{margin-bottom:0;padding:24px 28px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(145deg,rgba(16,45,70,.03),rgba(198,154,59,.045))}
+#research-themes,#projects,#publications,#preprints,#books{scroll-margin-top:132px}
+
+/* === contact page refinement === */
+.contact-hero>div:last-child{max-width:780px}
+.contact-hero p{max-width:660px}
+.contact-symbols{margin-top:22px}
+.contact-section{padding-top:52px}
+.contact-primary{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.65fr);gap:18px}
+.contact-email-card,.contact-affiliation-card{position:relative;border:1px solid var(--line);border-radius:11px;background:linear-gradient(150deg,rgba(16,45,70,.022),rgba(255,255,255,.95) 55%);overflow:hidden}
+.contact-email-card{padding:28px 30px 27px}
+.contact-affiliation-card{padding:28px 26px;border-top:3px solid var(--gold)}
+.contact-card-icon{position:absolute;right:24px;top:18px;font:italic 64px/1 var(--serif);color:rgba(198,154,59,.11)}
+.contact-email-card>small,.contact-affiliation-card>small{font-size:8px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.contact-email-card h2{font-size:34px;margin:9px 0 12px}
+.contact-email{display:inline-flex;align-items:center;gap:10px;font:clamp(20px,2.4vw,30px)/1.25 var(--serif);color:var(--navy);padding-bottom:5px;border-bottom:1px solid rgba(198,154,59,.55)}
+.contact-email span{font:15px/1 sans-serif;color:var(--gold)}
+.contact-email-card p{max-width:650px;color:var(--muted);font-size:12px;margin:15px 0 0}
+.contact-affiliation-card h3{font:26px/1.2 var(--serif);font-weight:400;color:var(--navy);margin:10px 0 11px}
+.contact-affiliation-card p{font-size:12px;color:var(--muted);margin:0 0 14px}
+.contact-affiliation-card>span{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy-2)}
+.contact-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.contact-profile-grid>a{display:grid;grid-template-columns:38px minmax(0,1fr) 20px;gap:12px;align-items:center;min-height:78px;padding:13px 14px;border:1px solid var(--line);border-radius:8px;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.contact-profile-grid>a:hover{transform:translateY(-2px);border-color:rgba(198,154,59,.6);background:rgba(198,154,59,.045)}
+.contact-profile-glyph{display:grid;place-items:center;width:36px;height:36px;border:1px solid rgba(16,45,70,.16);border-radius:50%;font:10px/1 monospace;color:var(--navy)}
+.contact-profile-grid small{display:block;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.contact-profile-grid strong{display:block;font:16px/1.2 var(--serif);font-weight:400;color:var(--navy)}
+.contact-profile-grid em{font-style:normal;color:var(--gold)}
+@media(max-width:1000px){
+ .research-subnav{top:80px;overflow-x:auto;white-space:nowrap}
+ .contact-primary{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+ .research-hub-paths{grid-template-columns:1fr}
+ .research-hub-stats{grid-template-columns:repeat(2,1fr)}
+ .research-hub-stats>span:nth-child(3){border-left:0}
+ .research-hub-stats>span{border-top:1px solid var(--line)}
+ .research-hub-stats>span:nth-child(-n+2){border-top:0}
+ .research-subnav{top:68px;margin:0 -24px;padding:9px 24px}
+ .segment-intro{grid-template-columns:42px minmax(0,1fr);gap:12px}
+ .segment-kicker{width:38px;height:38px}
+ .publication-segment-intro .segment-intro{padding:18px}
+ .contact-email-card,.contact-affiliation-card{padding:22px 20px}
+ .contact-profile-grid{grid-template-columns:1fr}
+}
