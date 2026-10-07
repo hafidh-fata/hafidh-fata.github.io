@@ -272,3 +272,67 @@ nav a:hover:before{content:"·";position:absolute;left:-9px;color:var(--accent)}
 .orbit-tracer{filter:drop-shadow(0 0 3px rgba(243,221,170,.58)) drop-shadow(0 0 8px rgba(243,221,170,.22))}
 .orbit-tail{filter:drop-shadow(0 0 2px rgba(243,221,170,.16))}
 @media(prefers-reduced-motion:reduce){.orbit-tracer,.orbit-tail{filter:none}}
+
+/* === compact-medium density === */
+@media(min-width:1001px){
+ .wrap{width:min(1120px,calc(100% - 88px))}
+ .nav{min-height:80px;gap:24px}
+ nav{gap:23px}
+ .home-hero{gap:52px;padding:72px 0 56px}
+ .home-section,.section{padding:64px 0}
+ .page-hero{padding:68px 0 52px;grid-template-columns:220px minmax(0,1fr);gap:32px}
+ .content-grid{grid-template-columns:220px minmax(0,1fr);gap:32px}
+ .profile-hero{padding:68px 0 52px;grid-template-columns:220px minmax(0,1fr);gap:32px}
+ .profile-hero-main{gap:40px}
+ .section-head{grid-template-columns:220px 1fr;gap:32px;margin-bottom:34px}
+ .home-feature-grid{gap:30px}
+ .featured-work{padding-left:30px}
+ .home-profiles{padding:22px 0 28px}
+ .research-list{gap:36px}
+ .research-item{grid-template-columns:105px minmax(0,1fr);gap:26px;padding-top:22px}
+ .publication{padding:23px 0}
+ .course{padding:20px 0}
+ .fact-grid{gap:18px;margin-top:28px}
+ .profile-summary{gap:12px}
+ .education-list article{padding:20px 0}
+ .profile-links{gap:12px}
+ .credential-grid{gap:24px}
+ .contact-list{margin-top:26px;gap:18px}
+ footer{padding:22px 0}
+}
+@media(max-width:1000px) and (min-width:761px){
+ .wrap{width:calc(100% - 52px)}
+ .home-section,.section{padding:58px 0}
+ .page-hero,.profile-hero{padding:60px 0 46px}
+ .research-list{gap:34px}
+ .publication{padding:22px 0}
+}
+
+/* === quiet micro-interactions === */
+.publication,.research-item,.course,.profile-links a,.home-profiles a,.education-list article,.contact-item{
+ transition:transform .18s ease,background-color .18s ease,border-color .18s ease;
+}
+@media(hover:hover){
+ .publication:hover{transform:translateX(3px)}
+ .research-item:hover{transform:translateX(3px)}
+ .course:hover{transform:translateX(3px)}
+ .profile-links a:hover{transform:translateY(-2px)}
+ .home-profiles a:hover{transform:translateY(-2px)}
+ .education-list article:hover{transform:translateX(3px)}
+ .contact-item:hover{transform:translateY(-2px)}
+ .text-link{transition:color .18s ease,border-color .18s ease}
+ .text-link:hover{color:var(--teal);border-color:var(--teal)}
+}
+
+/* === first-view reveal === */
+.reveal-enabled .reveal-item{
+ opacity:.58;
+ transform:translateY(8px);
+ transition:opacity .46s ease,transform .46s cubic-bezier(.2,.65,.3,1);
+}
+.reveal-enabled .reveal-item.is-visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+ .reveal-enabled .reveal-item,.publication,.research-item,.course,.profile-links a,.home-profiles a,.education-list article,.contact-item{
+  opacity:1!important;transform:none!important;transition:none!important;
+ }
+}
