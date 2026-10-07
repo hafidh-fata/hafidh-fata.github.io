@@ -6,14 +6,14 @@ artTop:"FROM MY RESEARCH",artCaption:"Sinusoidal Hénon map.",attractorName:"SIN
 topic1:"Dynamical systems",topic2:"Bifurcation & chaos",topic3:"Delay & memory",topic4:"Mathematical modelling",openPage:"Open page ↗",researchFocusLabel:"RESEARCH FOCUS",homeFocusTitle:"Nonlinear dynamics and bifurcation.",homeFocusText:"Stability, local bifurcations, chaos, delay and memory effects, and nonlinear models.",viewResearch:"View research ↗",viewAllPublications:"All publications ↗",
 aboutLabel:"ABOUT",profileLabel:"PROFILE",aboutLead:"Lecturer in Mathematics at Universitas Diponegoro. Research interests include nonlinear dynamical systems, bifurcation, chaos, delay, and memory.",
 factRole:"ROLE",factRoleValue:"Lecturer in Mathematics",factAff:"AFFILIATION",factAffValue:"Universitas Diponegoro",factField:"PRIMARY FIELD",factFieldValue:"Dynamical systems",
-credentialsLabel:"CREDENTIALS",credentialsHeading:"Verified credentials.",educationLabel:"EDUCATION",eduMaster:"M.Sc. Mathematics",eduBachelor:"B.Sc. Mathematics",selectedProjects:"SELECTED PROJECTS",principalInvestigator:"PRINCIPAL INVESTIGATOR",member:"MEMBER",booksLabel:"BOOKS",coAuthor:"Co-author",academicProfiles:"ACADEMIC PROFILES",scopusAnalysis:"Scopus analysis ↗",metricsLabel:"METRICS",documentsLabel:"documents",citationsLabel:"citations",scopusIndexed:"SCOPUS-INDEXED",
+credentialsLabel:"CREDENTIALS",credentialsHeading:"Verified credentials.",academicCv:"ACADEMIC CV",cvLead:"Lecturer in Mathematics · Universitas Diponegoro · Nonlinear dynamical systems and bifurcation.",printCv:"Print / Save as PDF",researchInterestsLabel:"RESEARCH INTERESTS",ipLabel:"INTELLECTUAL PROPERTY",copyrightLabel:"COPYRIGHT",articlesLabel:"JOURNAL ARTICLES",preprintsLabel:"PREPRINTS",snapshotLabel:"SINTA SNAPSHOT · OCT 2026",relatedOutputs:"RELATED OUTPUTS",codeProfile:"GitHub profile ↗",educationLabel:"EDUCATION",eduMaster:"M.Sc. Mathematics",eduBachelor:"B.Sc. Mathematics",selectedProjects:"SELECTED PROJECTS",principalInvestigator:"PRINCIPAL INVESTIGATOR",member:"MEMBER",booksLabel:"BOOKS",coAuthor:"Co-author",academicProfiles:"ACADEMIC PROFILES",scopusAnalysis:"Scopus analysis ↗",metricsLabel:"METRICS",documentsLabel:"documents",citationsLabel:"citations",scopusIndexed:"SCOPUS-INDEXED",
 researchLabel:"RESEARCH",researchPageTitle:"Nonlinear dynamics and bifurcation.",researchLead:"Analytical and numerical study of stability, bifurcation, chaos, delay, memory, and structure-preserving models.",
 researchItem1:"Bifurcation & chaos",researchItem1Text:"Flip and Neimark–Sacker bifurcations, normal forms, multistability, and chaos.",
 researchItem2:"Delay & memory",researchItem2Text:"Delayed adjustment and filtered feedback in discrete and continuous systems.",
 researchItem3:"Mathematical modelling",researchItem3Text:"Population, epidemic, and other applied nonlinear models.",
 researchItem4:"Numerical dynamics",researchItem4Text:"Continuation, Lyapunov indicators, parameter sweeps, basins, and simulation.",
 pubLabel:"PUBLICATIONS",pubPageTitle:"Publications.",selectedWork:"SELECTED WORK",featured:"SELECTED PUBLICATION",readPaper:"Read paper ↗",institutionRecord:"UNDIP record ↗",
-teachingLabel:"TEACHING",teachingPageTitle:"Teaching.",coursesLabel:"COURSES",course1:"Real Analysis",course2:"Partial Differential Equations",course3:"Algorithms & Programming",course4:"Engineering Mathematics",undergrad:"UNDERGRADUATE",
+teachingLabel:"TEACHING",teachingPageTitle:"Teaching.",coursesLabel:"COURSES",course1:"Real Analysis",course1Text:"Limits, continuity, sequences and series of functions, and integration.",course2:"Partial Differential Equations",course2Text:"Classification, diffusion, waves, and analytical solution methods.",course3:"Algorithms & Programming",course3Text:"Problem decomposition, pseudocode, flowcharts, and Python fundamentals.",course4:"Engineering Mathematics",course4Text:"Linear algebra and mathematical methods for engineering problems.",undergrad:"UNDERGRADUATE",
 contactLabel:"CONTACT",contactPageTitle:"Contact.",emailLabel:"EMAIL",profilesLabel:"PROFILES",locationLabel:"AFFILIATION",locationValue:"Department of Mathematics · Universitas Diponegoro",
 pause:"Pause",resume:"Resume",replay:"Replay",drawing:"Forming the attractor",paused:"Animation paused",complete:"Attractor complete",staticOrbit:"Reduced motion · static view",
 footerLocation:"Department of Mathematics · Universitas Diponegoro"
@@ -25,20 +25,20 @@ artTop:"DARI RISET SAYA",artCaption:"Peta Hénon sinusoidal.",attractorName:"PET
 topic1:"Sistem dinamik",topic2:"Bifurkasi & chaos",topic3:"Delay & memori",topic4:"Pemodelan matematika",openPage:"Buka halaman ↗",researchFocusLabel:"FOKUS RISET",homeFocusTitle:"Dinamika nonlinear dan bifurkasi.",homeFocusText:"Kestabilan, bifurkasi lokal, chaos, efek delay dan memori, serta model nonlinear.",viewResearch:"Lihat riset ↗",viewAllPublications:"Semua publikasi ↗",
 aboutLabel:"PROFIL",profileLabel:"PROFIL",aboutLead:"Dosen Matematika di Universitas Diponegoro. Minat riset meliputi sistem dinamik nonlinear, bifurkasi, chaos, delay, dan memori.",
 factRole:"PERAN",factRoleValue:"Dosen Matematika",factAff:"AFILIASI",factAffValue:"Universitas Diponegoro",factField:"BIDANG UTAMA",factFieldValue:"Sistem dinamik",
-credentialsLabel:"KREDENSIAL",credentialsHeading:"Kredensial terverifikasi.",educationLabel:"PENDIDIKAN",eduMaster:"Magister Matematika",eduBachelor:"Sarjana Matematika",selectedProjects:"PROYEK TERPILIH",principalInvestigator:"KETUA",member:"ANGGOTA",booksLabel:"BUKU",coAuthor:"Penulis bersama",academicProfiles:"PROFIL AKADEMIK",scopusAnalysis:"Analisis Scopus ↗",metricsLabel:"METRIK",documentsLabel:"dokumen",citationsLabel:"sitasi",scopusIndexed:"TERINDEKS SCOPUS",
+credentialsLabel:"KREDENSIAL",credentialsHeading:"Kredensial terverifikasi.",academicCv:"CV AKADEMIK",cvLead:"Dosen Matematika · Universitas Diponegoro · Sistem dinamik nonlinear dan bifurkasi.",printCv:"Cetak / Simpan sebagai PDF",researchInterestsLabel:"MINAT RISET",ipLabel:"KEKAYAAN INTELEKTUAL",copyrightLabel:"HAK CIPTA",articlesLabel:"ARTIKEL JURNAL",preprintsLabel:"PRACETAK",snapshotLabel:"SNAPSHOT SINTA · OKT 2026",relatedOutputs:"KELUARAN TERKAIT",codeProfile:"Profil GitHub ↗",educationLabel:"PENDIDIKAN",eduMaster:"Magister Matematika",eduBachelor:"Sarjana Matematika",selectedProjects:"PROYEK TERPILIH",principalInvestigator:"KETUA",member:"ANGGOTA",booksLabel:"BUKU",coAuthor:"Penulis bersama",academicProfiles:"PROFIL AKADEMIK",scopusAnalysis:"Analisis Scopus ↗",metricsLabel:"METRIK",documentsLabel:"dokumen",citationsLabel:"sitasi",scopusIndexed:"TERINDEKS SCOPUS",
 researchLabel:"RISET",researchPageTitle:"Dinamika nonlinear dan bifurkasi.",researchLead:"Kajian analitik dan numerik tentang kestabilan, bifurkasi, chaos, delay, memori, dan model yang mempertahankan struktur.",
 researchItem1:"Bifurkasi & chaos",researchItem1Text:"Bifurkasi flip dan Neimark–Sacker, bentuk normal, multistabilitas, dan chaos.",
 researchItem2:"Delay & memori",researchItem2Text:"Penyesuaian tertunda dan umpan balik terfilter pada sistem diskret dan kontinu.",
 researchItem3:"Pemodelan matematika",researchItem3Text:"Model populasi, epidemi, dan model nonlinear terapan lainnya.",
 researchItem4:"Dinamika numerik",researchItem4Text:"Kontinuasi, indikator Lyapunov, sweep parameter, basin, dan simulasi.",
 pubLabel:"PUBLIKASI",pubPageTitle:"Publikasi.",selectedWork:"KARYA PILIHAN",featured:"PUBLIKASI PILIHAN",readPaper:"Baca artikel ↗",institutionRecord:"Rekam UNDIP ↗",
-teachingLabel:"PENGAJARAN",teachingPageTitle:"Pengajaran.",coursesLabel:"MATA KULIAH",course1:"Analisis Riil",course2:"Persamaan Diferensial Parsial",course3:"Algoritma & Pemrograman",course4:"Matematika Teknik",undergrad:"PROGRAM SARJANA",
+teachingLabel:"PENGAJARAN",teachingPageTitle:"Pengajaran.",coursesLabel:"MATA KULIAH",course1:"Analisis Riil",course1Text:"Limit, kontinuitas, barisan dan deret fungsi, serta integral.",course2:"Persamaan Diferensial Parsial",course2Text:"Klasifikasi, difusi, gelombang, dan metode penyelesaian analitik.",course3:"Algoritma & Pemrograman",course3Text:"Dekomposisi masalah, pseudocode, flowchart, dan dasar Python.",course4:"Matematika Teknik",course4Text:"Aljabar linear dan metode matematika untuk masalah teknik.",undergrad:"PROGRAM SARJANA",
 contactLabel:"KONTAK",contactPageTitle:"Kontak.",emailLabel:"EMAIL",profilesLabel:"PROFIL",locationLabel:"AFILIASI",locationValue:"Departemen Matematika · Universitas Diponegoro",
 pause:"Jeda",resume:"Lanjutkan",replay:"Putar ulang",drawing:"Membentuk atraktor",paused:"Animasi dijeda",complete:"Atraktor lengkap",staticOrbit:"Gerak dikurangi · tampilan statis",
 footerLocation:"Departemen Matematika · Universitas Diponegoro"
 }
 };
-const pageTitles={home:{en:"Hafidh Khoerul Fata · Mathematics & Dynamics",id:"Hafidh Khoerul Fata · Matematika & Dinamika"},about:{en:"About · Hafidh Khoerul Fata",id:"Profil · Hafidh Khoerul Fata"},research:{en:"Research · Hafidh Khoerul Fata",id:"Riset · Hafidh Khoerul Fata"},publications:{en:"Publications · Hafidh Khoerul Fata",id:"Publikasi · Hafidh Khoerul Fata"},teaching:{en:"Teaching · Hafidh Khoerul Fata",id:"Pengajaran · Hafidh Khoerul Fata"},contact:{en:"Contact · Hafidh Khoerul Fata",id:"Kontak · Hafidh Khoerul Fata"}};
+const pageTitles={home:{en:"Hafidh Khoerul Fata · Mathematics & Dynamics",id:"Hafidh Khoerul Fata · Matematika & Dinamika"},about:{en:"About · Hafidh Khoerul Fata",id:"Profil · Hafidh Khoerul Fata"},research:{en:"Research · Hafidh Khoerul Fata",id:"Riset · Hafidh Khoerul Fata"},publications:{en:"Publications · Hafidh Khoerul Fata",id:"Publikasi · Hafidh Khoerul Fata"},teaching:{en:"Teaching · Hafidh Khoerul Fata",id:"Pengajaran · Hafidh Khoerul Fata"},contact:{en:"Contact · Hafidh Khoerul Fata",id:"Kontak · Hafidh Khoerul Fata"},cv:{en:"Academic CV · Hafidh Khoerul Fata",id:"CV Akademik · Hafidh Khoerul Fata"}};
 let updateOrbitControls=()=>{};
 function setLanguage(lang){
  if(!translations[lang])lang="en";
@@ -80,3 +80,61 @@ const current=document.body.dataset.page;const active=document.querySelector('[d
  motion.addEventListener("change",()=>{stopFrame();if(motion.matches){playing=false;showBatches(batches.length);updateOrbitControls()}else restart()});
  restart();setLanguage(document.documentElement.lang);
 })();
+let publicationData=null;
+function pubVenue(p){return p.journal||p.venue||p.publisher||""}
+function pubDetails(p){
+ const bits=[];
+ if(p.volume)bits.push("Vol. "+p.volume+(p.issue?"("+p.issue+")":""));
+ if(p.pages)bits.push(p.pages);
+ if(p.article)bits.push("Article "+p.article);
+ if(p.doi)bits.push("DOI "+p.doi);
+ return bits.join(" · ");
+}
+function publicationHTML(p,compact=false){
+ const badge=p.scopus?'<span class="index-badge">Scopus</span>':"";
+ const href=p.url||"#";
+ if(compact)return '<a class="mini-output" href="'+href+'"><span>'+p.year+'</span><strong>'+p.title+'</strong><em>↗</em></a>';
+ return '<article class="publication"><div class="pub-meta"><span>'+p.year+'</span><span>'+pubVenue(p)+' '+badge+'</span></div><h2><a href="'+href+'">'+p.title+' <span aria-hidden="true">↗</span></a></h2><p>'+p.authors.join(", ")+'</p>'+(pubDetails(p)?'<p>'+pubDetails(p)+'</p>':"")+'</article>';
+}
+function bookHTML(b){
+ return '<article class="publication"><div class="pub-meta"><span>'+b.year+'</span><span>'+b.publisher+'</span></div><h2><a href="'+b.url+'">'+b.title+' <span aria-hidden="true">↗</span></a></h2><p>'+b.authors.join(", ")+'</p><p>ISBN '+b.isbn+(b.pages?' · '+b.pages+' pages':"")+'</p></article>';
+}
+function renderPublicationViews(){
+ if(!publicationData)return;
+ const articles=document.getElementById("articles-list");
+ if(articles)articles.innerHTML=publicationData.articles.map(p=>publicationHTML(p)).join("");
+ const preprints=document.getElementById("preprints-list");
+ if(preprints)preprints.innerHTML=publicationData.preprints.map(p=>publicationHTML(p)).join("");
+ const books=document.getElementById("books-list");
+ if(books)books.innerHTML=publicationData.books.map(bookHTML).join("");
+ const featured=document.getElementById("home-featured-publication");
+ if(featured){
+  const p=publicationData.articles.find(x=>x.featured)||publicationData.articles[0];
+  featured.innerHTML='<div class="pub-meta"><span>'+p.year+'</span><span>'+p.journal+'</span></div><h2><a href="'+p.url+'">'+p.title+' <span aria-hidden="true">↗</span></a></h2><p>'+p.authors.join(" & ")+'</p>';
+ }
+ document.querySelectorAll("[data-related-tags]").forEach(el=>{
+  const tags=(el.dataset.relatedTags||"").split(",").map(x=>x.trim()).filter(Boolean);
+  const matches=publicationData.articles.filter(p=>tags.some(t=>(p.tags||[]).includes(t))).slice(0,2);
+  if(matches.length)el.innerHTML=matches.map(p=>publicationHTML(p,true)).join("");
+ });
+ const cvPubs=document.getElementById("cv-publications");
+ if(cvPubs)cvPubs.innerHTML=publicationData.articles.map(p=>publicationHTML(p)).join("");
+ const cvBooks=document.getElementById("cv-books");
+ if(cvBooks)cvBooks.innerHTML=publicationData.books.map(bookHTML).join("");
+ injectPublicationSchema();
+}
+function injectPublicationSchema(){
+ if(document.body.dataset.page!=="publications"||document.getElementById("publication-schema"))return;
+ const graph=publicationData.articles.map(p=>({
+  "@type":"ScholarlyArticle",
+  "name":p.title,
+  "datePublished":String(p.year),
+  "url":p.url,
+  "author":p.authors.map(name=>({"@type":"Person","name":name})),
+  "isPartOf":{"@type":"Periodical","name":p.journal},
+  ...(p.doi?{"identifier":"https://doi.org/"+p.doi}:{})
+ }));
+ const node=document.createElement("script");node.id="publication-schema";node.type="application/ld+json";
+ node.textContent=JSON.stringify({"@context":"https://schema.org","@graph":graph});document.head.appendChild(node);
+}
+fetch("/publications.json").then(r=>r.ok?r.json():Promise.reject()).then(data=>{publicationData=data;renderPublicationViews()}).catch(()=>{});
