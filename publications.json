@@ -1,0 +1,354 @@
+{
+  "updated": "2026-10-07",
+  "articles": [
+    {
+      "id": "theta-ricker-2026",
+      "year": 2026,
+      "title": "Nonlinear Dynamics and Bifurcation Structure of a Stage-Structured Theta-Ricker Map with Cross-Stage Feedback",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Nurcahya Yulian Ashar"
+      ],
+      "journal": "WSEAS Transactions on Mathematics",
+      "volume": "25",
+      "pages": "16–28",
+      "article": "3",
+      "doi": "10.37394/23206.2026.25.3",
+      "url": "https://doi.org/10.37394/23206.2026.25.3",
+      "scopus": true,
+      "tags": [
+        "bifurcation",
+        "chaos",
+        "maps",
+        "population"
+      ]
+    },
+    {
+      "id": "deposit-loan-2026",
+      "year": 2026,
+      "title": "Deterministic and Stochastic Modeling of Deposit–Loan Dynamics with Optimal Regulatory Control",
+      "authors": [
+        "Moch. Fandi Ansori",
+        "F. Hilal Gümüş",
+        "Ratna Herdiana",
+        "Hafidh Khoerul Fata",
+        "Nurcahya Yulian Ashar",
+        "Handika Lintang Saputra"
+      ],
+      "journal": "International Journal of Financial Studies",
+      "volume": "14",
+      "issue": "7",
+      "article": "174",
+      "doi": "10.3390/ijfs14070174",
+      "url": "https://doi.org/10.3390/ijfs14070174",
+      "scopus": true,
+      "tags": [
+        "banking",
+        "modelling",
+        "control",
+        "stochastic"
+      ]
+    },
+    {
+      "id": "sine-henon-2026",
+      "year": 2026,
+      "title": "Bifurcation structure and multistability in a sinusoidal modification of the Hénon map",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Nurcahya Yulian Ashar"
+      ],
+      "journal": "Journal of Difference Equations and Applications",
+      "volume": "32",
+      "issue": "8",
+      "pages": "1345–1380",
+      "doi": "10.1080/10236198.2026.2689969",
+      "url": "https://doi.org/10.1080/10236198.2026.2689969",
+      "scopus": true,
+      "featured": true,
+      "tags": [
+        "bifurcation",
+        "chaos",
+        "maps",
+        "multistability"
+      ]
+    },
+    {
+      "id": "coastal-risk-2026",
+      "year": 2026,
+      "title": "Threshold-Induced Bifurcation and Chaos in a One-Dimensional Coastal Risk Adaptation Map",
+      "authors": [
+        "Hafidh Khoerul Fata"
+      ],
+      "journal": "World Journal of Advanced Research and Reviews",
+      "volume": "30",
+      "issue": "3",
+      "pages": "912–923",
+      "doi": "10.30574/wjarr.2026.30.3.1687",
+      "url": "https://doi.org/10.30574/wjarr.2026.30.3.1687",
+      "scopus": false,
+      "tags": [
+        "bifurcation",
+        "chaos",
+        "maps",
+        "applied"
+      ]
+    },
+    {
+      "id": "hidden-attractors-2025",
+      "year": 2025,
+      "title": "Bifurcations, Hidden Attractors, and Chaos in a Nonlinear Three-Dimensional System",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Nurcahya Yulian Ashar"
+      ],
+      "journal": "European Journal of Pure and Applied Mathematics",
+      "volume": "18",
+      "issue": "4",
+      "article": "6968",
+      "doi": "10.29020/nybg.ejpam.v18i4.6968",
+      "url": "https://doi.org/10.29020/nybg.ejpam.v18i4.6968",
+      "scopus": false,
+      "tags": [
+        "bifurcation",
+        "chaos",
+        "continuous",
+        "hidden-attractors"
+      ]
+    },
+    {
+      "id": "quadratic-mickens-2025",
+      "year": 2025,
+      "title": "On the Dynamics of Particular Discrete Quadratic Systems with Potential Absence of Equilibria: Standard Euler versus Nonstandard Mickens Discretizations",
+      "authors": [
+        "Moch. Fandi Ansori",
+        "Hafidh Khoerul Fata",
+        "Nurcahya Yulian Ashar",
+        "Ratna Herdiana",
+        "Khairul Saleh"
+      ],
+      "journal": "European Journal of Pure and Applied Mathematics",
+      "volume": "18",
+      "issue": "4",
+      "article": "6506",
+      "doi": "10.29020/nybg.ejpam.v18i4.6506",
+      "url": "https://doi.org/10.29020/nybg.ejpam.v18i4.6506",
+      "scopus": false,
+      "tags": [
+        "bifurcation",
+        "discretization",
+        "nsfd",
+        "chaos"
+      ]
+    },
+    {
+      "id": "standard-nonstandard-2025",
+      "year": 2025,
+      "title": "A Study of Discrete-time Dynamical Systems with One Stable Equilibrium Using Standard and Nonstandard Difference Schemes",
+      "authors": [
+        "Nurcahya Yulian Ashar",
+        "Moch. Fandi Ansori",
+        "Hafidh Khoerul Fata",
+        "Ratna Herdiana"
+      ],
+      "journal": "WSEAS Transactions on Mathematics",
+      "volume": "24",
+      "pages": "640–650",
+      "doi": "10.37394/23206.2025.24.64",
+      "url": "https://doi.org/10.37394/23206.2025.24.64",
+      "scopus": true,
+      "tags": [
+        "discretization",
+        "nsfd",
+        "chaos",
+        "bifurcation"
+      ]
+    },
+    {
+      "id": "banking-logistic-2025",
+      "year": 2025,
+      "title": "Logistic Map-Based Banking Loan Dynamics with Central Bank Policies",
+      "authors": [
+        "Moch. Fandi Ansori",
+        "Nurcahya Yulian Ashar",
+        "Hafidh Khoerul Fata"
+      ],
+      "journal": "Journal of Applied Nonlinear Dynamics",
+      "volume": "14",
+      "issue": "3",
+      "pages": "561–574",
+      "doi": "10.5890/JAND.2025.09.006",
+      "url": "https://doi.org/10.5890/JAND.2025.09.006",
+      "scopus": true,
+      "tags": [
+        "banking",
+        "maps",
+        "bifurcation",
+        "modelling"
+      ]
+    },
+    {
+      "id": "quadratic-coupling-2025",
+      "year": 2025,
+      "title": "Bifurcation and Dynamics in a 3D System with Quadratic Coupling",
+      "authors": [
+        "Nurcahya Yulian Ashar",
+        "Hafidh Khoerul Fata"
+      ],
+      "journal": "International Journal of Research and Review",
+      "volume": "12",
+      "issue": "6",
+      "doi": "10.52403/ijrr.20250676",
+      "url": "https://doi.org/10.52403/ijrr.20250676",
+      "scopus": false,
+      "tags": [
+        "bifurcation",
+        "chaos",
+        "continuous"
+      ]
+    },
+    {
+      "id": "hdi-central-java-2025",
+      "year": 2025,
+      "title": "The Effect of Economic Growth, per Capita Expenditure, and Poverty Levels on the Human Development Index in Central Java Province",
+      "authors": [
+        "Heri Soelistyo Utomo",
+        "Nurcahya Yulian Ashar",
+        "Hafidh Khoerul Fata",
+        "Meta Kurniawati"
+      ],
+      "journal": "International Journal of Research and Review",
+      "volume": "12",
+      "issue": "10",
+      "pages": "329–335",
+      "doi": "10.52403/ijrr.20251033",
+      "url": "https://doi.org/10.52403/ijrr.20251033",
+      "scopus": false,
+      "tags": [
+        "statistics",
+        "applied",
+        "development"
+      ]
+    },
+    {
+      "id": "supply-chain-delay-2025",
+      "year": 2025,
+      "title": "Delay-Induced Oscillations and Instability in a Nonlinear Supply Chain Inventory System",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Handika Lintang Saputra"
+      ],
+      "journal": "International Journal of Research and Review",
+      "volume": "12",
+      "issue": "12",
+      "doi": "10.52403/ijrr.20251211",
+      "url": "https://doi.org/10.52403/ijrr.20251211",
+      "scopus": false,
+      "tags": [
+        "delay",
+        "bifurcation",
+        "continuous",
+        "applied"
+      ]
+    },
+    {
+      "id": "quadratic-system-2024",
+      "year": 2024,
+      "title": "Analytical and Numerical Analysis of Dynamical Behavior in a Nonlinear System with Quadratic Term",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Moch. Fandi Ansori"
+      ],
+      "journal": "Journal of Computational Analysis and Applications",
+      "volume": "33",
+      "issue": "7",
+      "pages": "777–781",
+      "url": "https://eudoxuspress.com/index.php/pub/article/view/1142",
+      "scopus": false,
+      "tags": [
+        "bifurcation",
+        "chaos",
+        "continuous"
+      ]
+    },
+    {
+      "id": "banking-dividend-2023",
+      "year": 2023,
+      "title": "Banking Loan Dynamics with Dividen Payments",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Nurcahya Yulian Ashar",
+        "Moch. Fandi Ansori"
+      ],
+      "journal": "Advances in Dynamical Systems and Applications",
+      "volume": "18",
+      "issue": "2",
+      "pages": "87–99",
+      "url": "https://www.ripublication.com/Volume/adsav18n2.htm",
+      "scopus": false,
+      "tags": [
+        "banking",
+        "bifurcation",
+        "maps",
+        "modelling"
+      ]
+    },
+    {
+      "id": "capital-policy-2023",
+      "year": 2023,
+      "title": "The Effects of Capital Policy on Banking Loan Dynamics: A Difference Equation Approach",
+      "authors": [
+        "Nurcahya Yulian Ashar",
+        "Moch. Fandi Ansori",
+        "Hafidh Khoerul Fata"
+      ],
+      "journal": "International Journal of Difference Equations",
+      "volume": "18",
+      "issue": "1",
+      "pages": "267–279",
+      "url": "https://mail.ripublication.com/Volume/ijdev18n1.htm",
+      "scopus": false,
+      "tags": [
+        "banking",
+        "maps",
+        "bifurcation",
+        "modelling"
+      ]
+    }
+  ],
+  "preprints": [
+    {
+      "id": "delayed-quadratic-memory-2026",
+      "year": 2026,
+      "title": "Stability and Bifurcation Routes in a Delayed Quadratic Map with Recursive Filtered Memory",
+      "authors": [
+        "Hafidh Khoerul Fata",
+        "Yosephus Decupertino Sumanto",
+        "Robertus Heri Soelistyo Utomo"
+      ],
+      "venue": "Research Square",
+      "doi": "10.21203/rs.3.rs-10102939/v1",
+      "url": "https://doi.org/10.21203/rs.3.rs-10102939/v1",
+      "tags": [
+        "delay",
+        "memory",
+        "maps",
+        "bifurcation"
+      ]
+    }
+  ],
+  "books": [
+    {
+      "id": "set-relation-2025",
+      "year": 2025,
+      "title": "Teori Himpunan dan Relasi",
+      "authors": [
+        "Nurcahya Yulian Ashar",
+        "Hafidh Khoerul Fata"
+      ],
+      "publisher": "UNDIP Press",
+      "isbn": "9786324176148",
+      "pages": "116",
+      "url": "https://penerbit.undip.ac.id/index.php/penerbit/catalog/book/974"
+    }
+  ]
+}
