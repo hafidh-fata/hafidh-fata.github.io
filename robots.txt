@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hafidh-fata.github.io/sitemap.xml
