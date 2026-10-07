@@ -1,6 +1,6 @@
 const translations={
 en:{
-skip:"Skip to content",navHome:"Home",navAbout:"About",navResearch:"Research",navPublications:"Publications",navResearchPublications:"Research & Publications",navTeaching:"Teaching",navCommunity:"Community",navContact:"Contact",
+skip:"Skip to content",navHome:"Home",navAbout:"About",navResearch:"Research",navResearchPublications:"Research & Publications",navTeaching:"Teaching",navCommunity:"Community",navContact:"Contact",
 role:"Mathematics · Dynamical Systems",intro:"Lecturer and researcher in nonlinear dynamical systems, bifurcation, and mathematical modelling.",position:"Lecturer in Mathematics",affiliation:"Universitas Diponegoro · Semarang, Indonesia",
 artTop:"FROM MY RESEARCH",artCaption:"Sinusoidal Hénon map.",attractorName:"SINE–HÉNON MAP",
 topic1:"Dynamical systems",topic2:"Bifurcation & chaos",topic3:"Delay & memory",topic4:"Mathematical modelling",openPage:"Open page ↗",researchFocusLabel:"RESEARCH FOCUS",viewCv:"Public CV",researchOutputsLabel:"RESEARCH OUTPUTS",homeFocusTitle:"Nonlinear dynamics and bifurcation.",homeFocusText:"Stability, local bifurcations, chaos, delay and memory effects, and nonlinear models.",viewResearch:"View research ↗",viewAllPublications:"All publications ↗",
@@ -12,14 +12,14 @@ researchItem1:"Bifurcation & chaos",researchItem1Text:"Flip and Neimark–Sacker
 researchItem2:"Delay & memory",researchItem2Text:"Delayed adjustment and filtered feedback in discrete and continuous systems.",
 researchItem3:"Mathematical modelling",researchItem3Text:"Population, epidemic, and other applied nonlinear models.",
 researchItem4:"Numerical dynamics",researchItem4Text:"Continuation, Lyapunov indicators, parameter sweeps, basins, and simulation.",
-pubLabel:"PUBLICATIONS",pubPageTitle:"Publications.",filterAll:"All",filterDelay:"Delay & Memory",selectedWork:"SELECTED WORK",featured:"SELECTED PUBLICATION",readPaper:"Read paper ↗",institutionRecord:"UNDIP record ↗",
+filterAll:"All",filterDelay:"Delay & Memory",selectedWork:"SELECTED WORK",featured:"SELECTED PUBLICATION",readPaper:"Read paper ↗",institutionRecord:"UNDIP record ↗",
 teachingLabel:"TEACHING",teachingPageTitle:"Teaching.",coursesLabel:"COURSES",course1:"Real Analysis",course1Text:"Limits, continuity, sequences and series of functions, and integration.",course2:"Partial Differential Equations",course2Text:"Classification, diffusion, waves, and analytical solution methods.",course3:"Algorithms & Programming",course3Text:"Problem decomposition, pseudocode, flowcharts, and Python fundamentals.",course4:"Engineering Mathematics",course4Text:"Linear algebra and mathematical methods for engineering problems.",undergrad:"UNDERGRADUATE",
 communityLabel:"COMMUNITY SERVICE",communityPageTitle:"Community engagement.",communityLead:"Mathematics-based outreach, scientific mentoring, data-informed community work, and local development.",communityActivities:"ACTIVITIES",communitySummary:"Eight completed activities from 2023–2025, with seven led as project chair.",leadRole:"LEAD",memberRole:"MEMBER",contactLabel:"CONTACT",contactPageTitle:"Contact.",emailLabel:"EMAIL",profilesLabel:"PROFILES",locationLabel:"AFFILIATION",locationValue:"Department of Mathematics · Universitas Diponegoro",
 pause:"Pause",resume:"Resume",replay:"Replay",drawing:"Forming the attractor",paused:"Animation paused",complete:"Attractor complete",staticOrbit:"Reduced motion · static view",
 footerLocation:"Department of Mathematics · Universitas Diponegoro"
 },
 id:{
-skip:"Langsung ke isi",navHome:"Beranda",navAbout:"Profil",navResearch:"Riset",navPublications:"Publikasi",navResearchPublications:"Riset & Publikasi",navTeaching:"Pengajaran",navCommunity:"Pengabdian",navContact:"Kontak",
+skip:"Langsung ke isi",navHome:"Beranda",navAbout:"Profil",navResearch:"Riset",navResearchPublications:"Riset & Publikasi",navTeaching:"Pengajaran",navCommunity:"Pengabdian",navContact:"Kontak",
 role:"Matematika · Sistem Dinamik",intro:"Dosen dan peneliti pada sistem dinamik nonlinear, bifurkasi, dan pemodelan matematika.",position:"Dosen Matematika",affiliation:"Universitas Diponegoro · Semarang, Indonesia",
 artTop:"DARI RISET SAYA",artCaption:"Peta Hénon sinusoidal.",attractorName:"PETA SINE–HÉNON",
 topic1:"Sistem dinamik",topic2:"Bifurkasi & chaos",topic3:"Delay & memori",topic4:"Pemodelan matematika",openPage:"Buka halaman ↗",researchFocusLabel:"FOKUS RISET",viewCv:"CV publik",researchOutputsLabel:"KELUARAN RISET",homeFocusTitle:"Dinamika nonlinear dan bifurkasi.",homeFocusText:"Kestabilan, bifurkasi lokal, chaos, efek delay dan memori, serta model nonlinear.",viewResearch:"Lihat riset ↗",viewAllPublications:"Semua publikasi ↗",
@@ -31,14 +31,14 @@ researchItem1:"Bifurkasi & chaos",researchItem1Text:"Bifurkasi flip dan Neimark�
 researchItem2:"Delay & memori",researchItem2Text:"Penyesuaian tertunda dan umpan balik terfilter pada sistem diskret dan kontinu.",
 researchItem3:"Pemodelan matematika",researchItem3Text:"Model populasi, epidemi, dan model nonlinear terapan lainnya.",
 researchItem4:"Dinamika numerik",researchItem4Text:"Kontinuasi, indikator Lyapunov, sweep parameter, basin, dan simulasi.",
-pubLabel:"PUBLIKASI",pubPageTitle:"Publikasi.",filterAll:"Semua",filterDelay:"Delay & Memori",selectedWork:"KARYA PILIHAN",featured:"PUBLIKASI PILIHAN",readPaper:"Baca artikel ↗",institutionRecord:"Rekam UNDIP ↗",
+filterAll:"Semua",filterDelay:"Delay & Memori",selectedWork:"KARYA PILIHAN",featured:"PUBLIKASI PILIHAN",readPaper:"Baca artikel ↗",institutionRecord:"Rekam UNDIP ↗",
 teachingLabel:"PENGAJARAN",teachingPageTitle:"Pengajaran.",coursesLabel:"MATA KULIAH",course1:"Analisis Riil",course1Text:"Limit, kontinuitas, barisan dan deret fungsi, serta integral.",course2:"Persamaan Diferensial Parsial",course2Text:"Klasifikasi, difusi, gelombang, dan metode penyelesaian analitik.",course3:"Algoritma & Pemrograman",course3Text:"Dekomposisi masalah, pseudocode, flowchart, dan dasar Python.",course4:"Matematika Teknik",course4Text:"Aljabar linear dan metode matematika untuk masalah teknik.",undergrad:"PROGRAM SARJANA",
 communityLabel:"PENGABDIAN",communityPageTitle:"Pengabdian kepada masyarakat.",communityLead:"Pendampingan berbasis matematika, pembinaan ilmiah, pemanfaatan data, dan pengembangan potensi lokal.",communityActivities:"KEGIATAN",communitySummary:"Delapan kegiatan selesai pada 2023–2025, dengan tujuh kegiatan dipimpin sebagai ketua.",leadRole:"KETUA",memberRole:"ANGGOTA",contactLabel:"KONTAK",contactPageTitle:"Kontak.",emailLabel:"EMAIL",profilesLabel:"PROFIL",locationLabel:"AFILIASI",locationValue:"Departemen Matematika · Universitas Diponegoro",
 pause:"Jeda",resume:"Lanjutkan",replay:"Putar ulang",drawing:"Membentuk atraktor",paused:"Animasi dijeda",complete:"Atraktor lengkap",staticOrbit:"Gerak dikurangi · tampilan statis",
 footerLocation:"Departemen Matematika · Universitas Diponegoro"
 }
 };
-const pageTitles={home:{en:"Hafidh Khoerul Fata · Mathematics & Dynamics",id:"Hafidh Khoerul Fata · Matematika & Dinamika"},about:{en:"About · Hafidh Khoerul Fata",id:"Profil · Hafidh Khoerul Fata"},research:{en:"Research & Publications · Hafidh Khoerul Fata",id:"Riset & Publikasi · Hafidh Khoerul Fata"},publications:{en:"Publications · Hafidh Khoerul Fata",id:"Publikasi · Hafidh Khoerul Fata"},community:{en:"Community Service · Hafidh Khoerul Fata",id:"Pengabdian · Hafidh Khoerul Fata"},teaching:{en:"Teaching · Hafidh Khoerul Fata",id:"Pengajaran · Hafidh Khoerul Fata"},contact:{en:"Contact · Hafidh Khoerul Fata",id:"Kontak · Hafidh Khoerul Fata"},cv:{en:"Academic CV · Hafidh Khoerul Fata",id:"CV Akademik · Hafidh Khoerul Fata"}};
+const pageTitles={home:{en:"Hafidh Khoerul Fata · Mathematics & Dynamics",id:"Hafidh Khoerul Fata · Matematika & Dinamika"},about:{en:"About · Hafidh Khoerul Fata",id:"Profil · Hafidh Khoerul Fata"},research:{en:"Research & Publications · Hafidh Khoerul Fata",id:"Riset & Publikasi · Hafidh Khoerul Fata"},community:{en:"Community Service · Hafidh Khoerul Fata",id:"Pengabdian · Hafidh Khoerul Fata"},teaching:{en:"Teaching · Hafidh Khoerul Fata",id:"Pengajaran · Hafidh Khoerul Fata"},contact:{en:"Contact · Hafidh Khoerul Fata",id:"Kontak · Hafidh Khoerul Fata"},cv:{en:"Academic CV · Hafidh Khoerul Fata",id:"CV Akademik · Hafidh Khoerul Fata"}};
 let updateOrbitControls=()=>{};
 function setLanguage(lang){
  if(!translations[lang])lang="en";
@@ -55,7 +55,7 @@ document.querySelectorAll("[data-lang]").forEach(el=>el.addEventListener("click"
 let preferred="en";try{preferred=localStorage.getItem("hafidh-language")||"en"}catch{}
 setLanguage(preferred);
 const year=document.getElementById("year");if(year)year.textContent=new Date().getFullYear();
-const current=document.body.dataset.page;const navCurrent=current==="publications"?"research":current;const active=document.querySelector('[data-nav="'+navCurrent+'"]');if(active)active.setAttribute("aria-current","page");
+const current=document.body.dataset.page;const active=document.querySelector('[data-nav="'+navCurrent+'"]');if(active)active.setAttribute("aria-current","page");
 (function initOrbit(){
  const orbitGroup=document.getElementById("orbit-art");if(!orbitGroup)return;
  const a=3.94958,b=.478992;
@@ -276,7 +276,7 @@ function initPublicationFilters(){
 }
 
 function injectPublicationSchema(){
- if(!["publications","research"].includes(document.body.dataset.page)||document.getElementById("publication-schema"))return;
+ if(document.body.dataset.page!=="research"||document.getElementById("publication-schema"))return;
  const graph=publicationData.articles.map(p=>({
   "@type":"ScholarlyArticle",
   "name":p.title,
