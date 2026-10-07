@@ -174,8 +174,6 @@ footer{border-top:1px solid var(--line);padding:26px 0}
 .related-outputs>small{display:block;color:var(--teal);font-size:9px;letter-spacing:.12em;margin-bottom:7px}
 .mini-output{display:grid;grid-template-columns:48px minmax(0,1fr) 20px;gap:10px;align-items:start;padding:8px 0;border-top:1px solid #e2e6e0;font-size:11px}
 .mini-output span{color:var(--muted)}.mini-output strong{font-weight:500}.mini-output em{font-style:normal;color:var(--teal)}
-.print-button{margin-top:20px;border:1px solid var(--line);background:transparent;padding:9px 13px;border-radius:3px;color:var(--ink);font-size:11px;cursor:pointer}
-.print-button:hover{background:var(--soft)}
 .large-tags{align-content:start}
 .cv-page .publication h2{font-size:22px}
 @media print{
