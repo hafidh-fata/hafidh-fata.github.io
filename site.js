@@ -55,7 +55,7 @@ document.querySelectorAll("[data-lang]").forEach(el=>el.addEventListener("click"
 let preferred="en";try{preferred=localStorage.getItem("hafidh-language")||"en"}catch{}
 setLanguage(preferred);
 const year=document.getElementById("year");if(year)year.textContent=new Date().getFullYear();
-const current=document.body.dataset.page;const active=document.querySelector('[data-nav="'+current+'"]');if(active)active.setAttribute("aria-current","page");
+const current=document.body.dataset.page;const active=document.querySelector('[data-nav="'+current+'"]');if(active){active.setAttribute("aria-current","page");if(window.matchMedia("(max-width:760px)").matches){requestAnimationFrame(()=>active.scrollIntoView({behavior:"auto",block:"nearest",inline:"center"}));}}
 (function initOrbit(){
  const orbitGroup=document.getElementById("orbit-art");if(!orbitGroup)return;
  const a=3.94958,b=.478992;
