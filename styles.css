@@ -267,3 +267,8 @@ nav a:hover:before{content:"·";position:absolute;left:-9px;color:var(--accent)}
  .profile-links a{padding-left:44px}
 }
 @media(prefers-reduced-motion:reduce){.symbol-link{transition:none}}
+
+/* Continuous attractor tracer */
+.orbit-tracer{filter:drop-shadow(0 0 3px rgba(243,221,170,.58)) drop-shadow(0 0 8px rgba(243,221,170,.22))}
+.orbit-tail{filter:drop-shadow(0 0 2px rgba(243,221,170,.16))}
+@media(prefers-reduced-motion:reduce){.orbit-tracer,.orbit-tail{filter:none}}
