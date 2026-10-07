@@ -185,6 +185,27 @@ const current=document.body.dataset.page;const active=document.querySelector('[d
  motion.addEventListener("change",restart);
  restart();
 })();
+
+function initRevealTargets(root=document){
+ if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+ document.documentElement.classList.add("reveal-enabled");
+ const targets=root.querySelectorAll(".section,.home-feature,.home-profiles a,.research-item,.publication,.course,.profile-links a,.education-list article,.contact-item");
+ targets.forEach(el=>{
+  if(el.dataset.revealReady)return;
+  el.dataset.revealReady="1";
+  el.classList.add("reveal-item");
+  revealObserver.observe(el);
+ });
+}
+const revealObserver=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  entry.target.classList.add("is-visible");
+  revealObserver.unobserve(entry.target);
+ });
+},{threshold:.08,rootMargin:"0px 0px -4% 0px"});
+initRevealTargets();
+
 let publicationData=null;
 function pubVenue(p){return p.journal||p.venue||p.publisher||""}
 function pubDetails(p){
@@ -227,6 +248,7 @@ function renderPublicationViews(){
  const cvBooks=document.getElementById("cv-books");
  if(cvBooks)cvBooks.innerHTML=publicationData.books.map(bookHTML).join("");
  injectPublicationSchema();
+ initRevealTargets();
 }
 function injectPublicationSchema(){
  if(document.body.dataset.page!=="publications"||document.getElementById("publication-schema"))return;
