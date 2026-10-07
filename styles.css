@@ -689,3 +689,57 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  .contact-email-card,.contact-affiliation-card{padding:22px 20px}
  .contact-profile-grid{grid-template-columns:1fr}
 }
+
+/* === header proportion + active navigation correction === */
+.nav{min-height:70px!important}
+.brand.brand-logo{
+ width:138px!important;
+ min-width:138px!important;
+ max-width:138px!important;
+ height:44px!important;
+ display:flex!important;
+ align-items:center!important;
+ overflow:hidden!important;
+ flex:0 0 138px!important;
+}
+.brand-mark{
+ width:138px!important;
+ max-width:138px!important;
+ height:auto!important;
+ display:block!important;
+ object-fit:contain!important;
+ object-position:left center!important;
+}
+.nav nav a{
+ border-radius:999px;
+ transition:background-color .16s ease,color .16s ease,border-color .16s ease!important;
+}
+.nav nav a:hover{
+ background:rgba(16,45,70,.075)!important;
+ color:#102d46!important;
+ border-color:rgba(16,45,70,.08)!important;
+ transform:none!important;
+}
+.nav nav a[aria-current="page"]{
+ background:#102d46!important;
+ color:#ffffff!important;
+ border-color:#102d46!important;
+ box-shadow:0 2px 8px rgba(16,45,70,.12)!important;
+}
+.nav nav a[aria-current="page"]:hover{
+ background:#173f61!important;
+ color:#ffffff!important;
+}
+.nav nav a[aria-current="page"]:after{
+ display:none!important;
+ content:none!important;
+}
+@media(max-width:1000px){
+ .brand.brand-logo,.brand-mark{width:126px!important;max-width:126px!important}
+ .brand.brand-logo{min-width:126px!important;flex-basis:126px!important;height:40px!important}
+}
+@media(max-width:760px){
+ .brand.brand-logo,.brand-mark{width:114px!important;max-width:114px!important}
+ .brand.brand-logo{min-width:114px!important;flex-basis:114px!important;height:36px!important}
+ .nav{min-height:64px!important}
+}
