@@ -12,7 +12,7 @@ researchItem1:"Bifurcation & chaos",researchItem1Text:"Flip and Neimark–Sacker
 researchItem2:"Delay & memory",researchItem2Text:"Delayed adjustment and filtered feedback in discrete and continuous systems.",
 researchItem3:"Mathematical modelling",researchItem3Text:"Population, epidemic, and other applied nonlinear models.",
 researchItem4:"Numerical dynamics",researchItem4Text:"Continuation, Lyapunov indicators, parameter sweeps, basins, and simulation.",
-pubLabel:"PUBLICATIONS",pubPageTitle:"Publications.",selectedWork:"SELECTED WORK",featured:"SELECTED PUBLICATION",readPaper:"Read paper ↗",institutionRecord:"UNDIP record ↗",
+pubLabel:"PUBLICATIONS",pubPageTitle:"Publications.",filterAll:"All",filterDelay:"Delay & Memory",selectedWork:"SELECTED WORK",featured:"SELECTED PUBLICATION",readPaper:"Read paper ↗",institutionRecord:"UNDIP record ↗",
 teachingLabel:"TEACHING",teachingPageTitle:"Teaching.",coursesLabel:"COURSES",course1:"Real Analysis",course1Text:"Limits, continuity, sequences and series of functions, and integration.",course2:"Partial Differential Equations",course2Text:"Classification, diffusion, waves, and analytical solution methods.",course3:"Algorithms & Programming",course3Text:"Problem decomposition, pseudocode, flowcharts, and Python fundamentals.",course4:"Engineering Mathematics",course4Text:"Linear algebra and mathematical methods for engineering problems.",undergrad:"UNDERGRADUATE",
 contactLabel:"CONTACT",contactPageTitle:"Contact.",emailLabel:"EMAIL",profilesLabel:"PROFILES",locationLabel:"AFFILIATION",locationValue:"Department of Mathematics · Universitas Diponegoro",
 pause:"Pause",resume:"Resume",replay:"Replay",drawing:"Forming the attractor",paused:"Animation paused",complete:"Attractor complete",staticOrbit:"Reduced motion · static view",
@@ -31,7 +31,7 @@ researchItem1:"Bifurkasi & chaos",researchItem1Text:"Bifurkasi flip dan Neimark�
 researchItem2:"Delay & memori",researchItem2Text:"Penyesuaian tertunda dan umpan balik terfilter pada sistem diskret dan kontinu.",
 researchItem3:"Pemodelan matematika",researchItem3Text:"Model populasi, epidemi, dan model nonlinear terapan lainnya.",
 researchItem4:"Dinamika numerik",researchItem4Text:"Kontinuasi, indikator Lyapunov, sweep parameter, basin, dan simulasi.",
-pubLabel:"PUBLIKASI",pubPageTitle:"Publikasi.",selectedWork:"KARYA PILIHAN",featured:"PUBLIKASI PILIHAN",readPaper:"Baca artikel ↗",institutionRecord:"Rekam UNDIP ↗",
+pubLabel:"PUBLIKASI",pubPageTitle:"Publikasi.",filterAll:"Semua",filterDelay:"Delay & Memori",selectedWork:"KARYA PILIHAN",featured:"PUBLIKASI PILIHAN",readPaper:"Baca artikel ↗",institutionRecord:"Rekam UNDIP ↗",
 teachingLabel:"PENGAJARAN",teachingPageTitle:"Pengajaran.",coursesLabel:"MATA KULIAH",course1:"Analisis Riil",course1Text:"Limit, kontinuitas, barisan dan deret fungsi, serta integral.",course2:"Persamaan Diferensial Parsial",course2Text:"Klasifikasi, difusi, gelombang, dan metode penyelesaian analitik.",course3:"Algoritma & Pemrograman",course3Text:"Dekomposisi masalah, pseudocode, flowchart, dan dasar Python.",course4:"Matematika Teknik",course4Text:"Aljabar linear dan metode matematika untuk masalah teknik.",undergrad:"PROGRAM SARJANA",
 contactLabel:"KONTAK",contactPageTitle:"Kontak.",emailLabel:"EMAIL",profilesLabel:"PROFIL",locationLabel:"AFILIASI",locationValue:"Departemen Matematika · Universitas Diponegoro",
 pause:"Jeda",resume:"Lanjutkan",replay:"Putar ulang",drawing:"Membentuk atraktor",paused:"Animasi dijeda",complete:"Atraktor lengkap",staticOrbit:"Gerak dikurangi · tampilan statis",
@@ -228,7 +228,10 @@ function bookHTML(b){
 function renderPublicationViews(){
  if(!publicationData)return;
  const articles=document.getElementById("articles-list");
- if(articles)articles.innerHTML=publicationData.articles.map(p=>publicationHTML(p)).join("");
+ if(articles){
+  articles.innerHTML=publicationData.articles.map(p=>publicationHTML(p)).join("");
+  initPublicationFilters();
+ }
  const preprints=document.getElementById("preprints-list");
  if(preprints)preprints.innerHTML=publicationData.preprints.map(p=>publicationHTML(p)).join("");
  const books=document.getElementById("books-list");
@@ -250,6 +253,28 @@ function renderPublicationViews(){
  injectPublicationSchema();
  initRevealTargets();
 }
+function initPublicationFilters(){
+ const list=document.getElementById("articles-list");
+ const buttons=[...document.querySelectorAll("[data-pub-filter]")];
+ const count=document.getElementById("publication-count");
+ if(!list||!buttons.length||!publicationData)return;
+ function filtered(key){
+  if(key==="all")return publicationData.articles;
+  if(key==="scopus")return publicationData.articles.filter(p=>p.scopus);
+  if(key==="delay")return publicationData.articles.filter(p=>(p.tags||[]).some(t=>t==="delay"||t==="memory"));
+  return publicationData.articles.filter(p=>(p.tags||[]).includes(key));
+ }
+ function apply(key){
+  const items=filtered(key);
+  list.innerHTML=items.map(p=>publicationHTML(p)).join("");
+  if(count)count.textContent=items.length+" / "+publicationData.articles.length;
+  buttons.forEach(b=>b.classList.toggle("is-active",b.dataset.pubFilter===key));
+  initRevealTargets(list);
+ }
+ buttons.forEach(button=>button.addEventListener("click",()=>apply(button.dataset.pubFilter)));
+ apply("all");
+}
+
 function injectPublicationSchema(){
  if(document.body.dataset.page!=="publications"||document.getElementById("publication-schema"))return;
  const graph=publicationData.articles.map(p=>({
