@@ -58,27 +58,132 @@ const year=document.getElementById("year");if(year)year.textContent=new Date().g
 const current=document.body.dataset.page;const active=document.querySelector('[data-nav="'+current+'"]');if(active)active.setAttribute("aria-current","page");
 (function initOrbit(){
  const orbitGroup=document.getElementById("orbit-art");if(!orbitGroup)return;
- const a=3.94958,b=.478992;let x=.1,y=0;const points=[];
- for(let i=0;i<40000;i++){const nextX=1-a*Math.sin(x)+y;y=b*x;x=nextX;if(i>=10000)points.push([x,y])}
+ const a=3.94958,b=.478992;
+ let x=.1,y=0;
+ const points=[];
+ for(let i=0;i<40000;i++){
+  const nextX=1-a*Math.sin(x)+y;
+  y=b*x;x=nextX;
+  if(i>=10000)points.push([x,y]);
+ }
  let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
- for(const [px,py] of points){xmin=Math.min(xmin,px);xmax=Math.max(xmax,px);ymin=Math.min(ymin,py);ymax=Math.max(ymax,py)}
- const scale=Math.min(420/(xmax-xmin),275/(ymax-ymin)),cx=(xmin+xmax)/2,cy=(ymin+ymax)/2,svgNS="http://www.w3.org/2000/svg";
- const screenPoints=points.map(([px,py])=>[250+(px-cx)*scale,275-(py-cy)*scale]),batches=[],batchSize=300;
- for(let i=0;i<screenPoints.length;i+=batchSize){let d="";for(const [px,py] of screenPoints.slice(i,i+batchSize))d+="M"+px.toFixed(2)+" "+py.toFixed(2)+"h.05";const node=document.createElementNS(svgNS,"path");for(const [key,value] of Object.entries({d,fill:"none",stroke:"url(#orbit)","stroke-width":".8","stroke-linecap":"round",opacity:".65",visibility:"hidden"}))node.setAttribute(key,value);orbitGroup.append(node);batches.push(node)}
- const newest=document.createElementNS(svgNS,"circle");newest.setAttribute("r","2");newest.setAttribute("fill","#f3ddaa");newest.setAttribute("visibility","hidden");orbitGroup.append(newest);
- const motion=window.matchMedia("(prefers-reduced-motion: reduce)"),toggle=document.getElementById("orbit-toggle"),replay=document.getElementById("orbit-replay"),status=document.getElementById("orbit-status");
- let revealed=0,elapsed=0,lastTime=null,frameId=null,playing=false,inView=true;const duration=12000;
- function showBatches(count){for(let i=revealed;i<count;i++)batches[i].setAttribute("visibility","visible");revealed=count;if(count>0&&count<batches.length){const [px,py]=screenPoints[Math.min(count*batchSize,screenPoints.length)-1];newest.setAttribute("cx",px);newest.setAttribute("cy",py);newest.setAttribute("visibility","visible")}else newest.setAttribute("visibility","hidden")}
- updateOrbitControls=()=>{const t=translations[document.documentElement.lang]||translations.en;toggle.textContent=playing?t.pause:t.resume;toggle.disabled=motion.matches||revealed===batches.length;replay.textContent=t.replay;replay.disabled=motion.matches;const key=motion.matches?"staticOrbit":revealed===batches.length?"complete":playing?"drawing":"paused";status.textContent=t[key]};
+ for(const [px,py] of points){
+  xmin=Math.min(xmin,px);xmax=Math.max(xmax,px);
+  ymin=Math.min(ymin,py);ymax=Math.max(ymax,py);
+ }
+ const scale=Math.min(420/(xmax-xmin),275/(ymax-ymin));
+ const cx=(xmin+xmax)/2,cy=(ymin+ymax)/2;
+ const svgNS="http://www.w3.org/2000/svg";
+ const toScreen=(px,py)=>[250+(px-cx)*scale,275-(py-cy)*scale];
+ const screenPoints=points.map(([px,py])=>toScreen(px,py));
+ const batches=[],batchSize=300;
+ for(let i=0;i<screenPoints.length;i+=batchSize){
+  let d="";
+  for(const [px,py] of screenPoints.slice(i,i+batchSize))d+="M"+px.toFixed(2)+" "+py.toFixed(2)+"h.05";
+  const node=document.createElementNS(svgNS,"path");
+  for(const [key,value] of Object.entries({d,fill:"none",stroke:"url(#orbit)","stroke-width":".8","stroke-linecap":"round",opacity:".65",visibility:"hidden"}))node.setAttribute(key,value);
+  orbitGroup.append(node);batches.push(node);
+ }
+ const trailLength=8,trail=[];
+ for(let i=0;i<trailLength;i++){
+  const c=document.createElementNS(svgNS,"circle");
+  c.setAttribute("r",String(1.05+i*.08));
+  c.setAttribute("fill","#f3ddaa");
+  c.setAttribute("opacity",String(.07+i*.065));
+  c.setAttribute("visibility","hidden");
+  c.setAttribute("class","orbit-tail");
+  orbitGroup.append(c);trail.push(c);
+ }
+ const tracer=document.createElementNS(svgNS,"circle");
+ tracer.setAttribute("r","2.45");
+ tracer.setAttribute("fill","#f3ddaa");
+ tracer.setAttribute("visibility","hidden");
+ tracer.setAttribute("class","orbit-tracer");
+ orbitGroup.append(tracer);
+
+ const motion=window.matchMedia("(prefers-reduced-motion: reduce)");
+ let revealed=0,drawElapsed=0,lastTime=null,frameId=null,inView=true;
+ let mode="draw",orbitAccumulator=0;
+ const drawDuration=8500,orbitRate=55;
+ const recent=[];
+
+ function showBatches(count){
+  const bounded=Math.max(0,Math.min(count,batches.length));
+  for(let i=revealed;i<bounded;i++)batches[i].setAttribute("visibility","visible");
+  revealed=Math.max(revealed,bounded);
+ }
+ function setTracer(px,py,withTail){
+  const [sx,sy]=toScreen(px,py);
+  tracer.setAttribute("cx",sx);tracer.setAttribute("cy",sy);tracer.setAttribute("visibility","visible");
+  if(!withTail)return;
+  recent.push([sx,sy]);
+  if(recent.length>trailLength)recent.shift();
+  trail.forEach((node,i)=>{
+   const p=recent[recent.length-trail.length+i]||recent[i-(trail.length-recent.length)];
+   if(!p){node.setAttribute("visibility","hidden");return}
+   node.setAttribute("cx",p[0]);node.setAttribute("cy",p[1]);node.setAttribute("visibility","visible");
+  });
+ }
+ function hideTail(){trail.forEach(n=>n.setAttribute("visibility","hidden"));recent.length=0}
  function stopFrame(){if(frameId!==null)cancelAnimationFrame(frameId);frameId=null;lastTime=null}
- function schedule(){if(playing&&!motion.matches&&!document.hidden&&inView&&frameId===null)frameId=requestAnimationFrame(advance)}
- function advance(time){frameId=null;if(!playing||motion.matches||document.hidden||!inView){lastTime=null;return}if(lastTime!==null)elapsed+=Math.min(time-lastTime,100);lastTime=time;showBatches(Math.min(batches.length,Math.floor(elapsed/duration*batches.length)));if(revealed===batches.length){playing=false;lastTime=null;updateOrbitControls()}else schedule()}
- function restart(){stopFrame();if(motion.matches){showBatches(batches.length);playing=false;updateOrbitControls();return}for(const node of batches)node.setAttribute("visibility","hidden");revealed=0;elapsed=0;playing=true;newest.setAttribute("visibility","hidden");updateOrbitControls();schedule()}
- toggle.addEventListener("click",()=>{if(motion.matches||revealed===batches.length)return;playing=!playing;stopFrame();updateOrbitControls();schedule()});
- replay.addEventListener("click",restart);document.addEventListener("visibilitychange",()=>{stopFrame();schedule()});
- if("IntersectionObserver" in window){const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;stopFrame();schedule()},{threshold:0});observer.observe(document.querySelector(".art"))}
- motion.addEventListener("change",()=>{stopFrame();if(motion.matches){playing=false;showBatches(batches.length);updateOrbitControls()}else restart()});
- restart();setLanguage(document.documentElement.lang);
+ function schedule(){
+  if(!motion.matches&&!document.hidden&&inView&&frameId===null)frameId=requestAnimationFrame(advance);
+ }
+ function advance(time){
+  frameId=null;
+  if(motion.matches||document.hidden||!inView){lastTime=null;return}
+  if(lastTime===null)lastTime=time;
+  const dt=Math.min((time-lastTime)/1000,.08);
+  lastTime=time;
+
+  if(mode==="draw"){
+   drawElapsed+=dt*1000;
+   const fraction=Math.min(drawElapsed/drawDuration,1);
+   const count=Math.max(1,Math.floor(fraction*batches.length));
+   showBatches(count);
+   const idx=Math.min(screenPoints.length-1,count*batchSize-1);
+   const [sx,sy]=screenPoints[idx];
+   tracer.setAttribute("cx",sx);tracer.setAttribute("cy",sy);tracer.setAttribute("visibility","visible");
+   if(fraction>=1){
+    mode="orbit";
+    hideTail();
+    orbitAccumulator=0;
+   }
+  }else{
+   orbitAccumulator+=orbitRate*dt;
+   let steps=Math.floor(orbitAccumulator);
+   orbitAccumulator-=steps;
+   while(steps-->0){
+    const nextX=1-a*Math.sin(x)+y;
+    y=b*x;x=nextX;
+    setTracer(x,y,true);
+   }
+  }
+  schedule();
+ }
+ function showStatic(){
+  showBatches(batches.length);
+  hideTail();
+  const [sx,sy]=screenPoints[screenPoints.length-1];
+  tracer.setAttribute("cx",sx);tracer.setAttribute("cy",sy);tracer.setAttribute("visibility","visible");
+ }
+ function restart(){
+  stopFrame();
+  batches.forEach(n=>n.setAttribute("visibility","hidden"));
+  revealed=0;drawElapsed=0;mode="draw";orbitAccumulator=0;hideTail();
+  tracer.setAttribute("visibility","hidden");
+  if(motion.matches)showStatic();else schedule();
+ }
+ document.addEventListener("visibilitychange",()=>{stopFrame();schedule()});
+ if("IntersectionObserver" in window){
+  const observer=new IntersectionObserver(entries=>{
+   inView=entries[0].isIntersecting;
+   stopFrame();schedule();
+  },{threshold:.05});
+  observer.observe(document.querySelector(".art"));
+ }
+ motion.addEventListener("change",restart);
+ restart();
 })();
 let publicationData=null;
 function pubVenue(p){return p.journal||p.venue||p.publisher||""}
