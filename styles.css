@@ -546,3 +546,12 @@ body:after{
 body{background:#ffffff}
 header{background:rgba(255,255,255,.965)}
 .education-list article:before{background:#ffffff}
+
+/* === community service === */
+.community-stats{display:grid;grid-template-columns:110px 110px minmax(0,1fr);gap:16px;align-items:stretch;margin-bottom:24px}
+.community-stats>span{display:flex;flex-direction:column;justify-content:center;min-height:82px;padding:13px 15px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(145deg,rgba(198,154,59,.075),rgba(255,255,255,.15))}
+.community-stats strong{font:34px/1 var(--serif);font-weight:400;color:var(--navy)}
+.community-stats small{margin-top:7px;font-size:9px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+.community-stats p{margin:0;padding:15px 18px;border-left:2px solid var(--gold);color:var(--muted);font-size:13px;display:flex;align-items:center}
+.community-list .publication h2{font-size:24px;max-width:850px}
+@media(max-width:760px){.community-stats{grid-template-columns:1fr 1fr}.community-stats p{grid-column:1/-1}.community-list .publication h2{font-size:21px}}
