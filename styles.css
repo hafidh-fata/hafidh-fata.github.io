@@ -56,7 +56,7 @@ h3{font-weight:500}
 .section-label{font-size:10px;color:var(--teal);letter-spacing:.15em;text-transform:uppercase;padding-top:10px}
 .section-label span{color:#87998c;margin-right:17px}
 .section-summary{margin:17px 0 0;max-width:700px;color:var(--muted);font-size:15px}
-.home-grid,.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.home-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
 .card{padding-top:22px;border-top:1px solid #96aa9d}
 .card-number{font:italic 24px var(--serif);color:#8ba18c}
 .card h3{font:24px/1.25 var(--serif);font-weight:400;margin:20px 0 13px}
@@ -104,3 +104,5 @@ footer{border-top:1px solid var(--line);padding:26px 0}
 @media(max-width:1000px){.wrap{width:calc(100% - 56px)}.home-hero{gap:35px}nav{gap:14px}.section-head,.page-hero,.content-grid{grid-template-columns:170px 1fr;gap:25px}.subjects{font-size:8px;gap:10px}.subjects span+span:before{margin-right:10px}}
 @media(max-width:760px){.wrap{width:calc(100% - 40px)}.nav{min-height:72px;gap:12px;flex-wrap:wrap;padding:16px 0 12px}.brand{font-size:27px}.languages{margin-left:auto}nav{order:3;width:100%;margin:0;justify-content:space-between;gap:8px;overflow-x:auto;padding-bottom:2px}nav a{font-size:10px;white-space:nowrap}nav a[aria-current="page"]:after{bottom:-5px}.home-hero{grid-template-columns:1fr;gap:36px;padding:45px 0 35px}h1{font-size:58px;letter-spacing:-3px}.intro{font-size:16px;max-width:100%}.art{aspect-ratio:1.12}.subjects{flex-wrap:wrap;justify-content:flex-start;gap:10px 20px;font-size:9px}.subjects span+span:before{display:none}.home-section,.section{padding:48px 0}.section-head,.page-hero,.content-grid{display:block}.section-label{margin-bottom:17px}.home-grid,.research-grid{grid-template-columns:1fr;gap:29px}.page-hero{padding:48px 0 38px}.page-hero h1{font-size:50px}.fact-grid{grid-template-columns:1fr}.research-item{grid-template-columns:1fr;gap:8px}.research-item h2{font-size:28px}.contact-panel{padding:30px 25px;grid-template-columns:1fr}.contact-list{grid-template-columns:1fr}.course{grid-template-columns:1fr;gap:6px}.course .level{padding:0}.footer-inner{flex-direction:column;gap:8px}.footer-inner a{margin:0 22px 0 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@media(max-width:1000px) and (min-width:761px){.home-grid{grid-template-columns:repeat(2,1fr)}}
