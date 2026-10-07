@@ -553,3 +553,68 @@ header{background:rgba(255,255,255,.965)}
 .community-stats p{margin:0;padding:15px 18px;border-left:2px solid var(--gold);color:var(--muted);font-size:13px;display:flex;align-items:center}
 .community-list .publication h2{font-size:24px;max-width:850px}
 @media(max-width:760px){.community-stats{grid-template-columns:1fr 1fr}.community-stats p{grid-column:1/-1}.community-list .publication h2{font-size:21px}}
+
+/* === Hafidh wordmark logo === */
+.brand.brand-logo{
+ display:flex;
+ align-items:center;
+ flex:0 0 auto;
+ padding:0;
+ width:142px;
+ height:46px;
+ overflow:hidden;
+ border-radius:0;
+ line-height:0;
+}
+.brand.brand-logo:after{content:none}
+.brand-mark{
+ display:block;
+ width:142px;
+ height:auto;
+ object-fit:contain;
+ object-position:left center;
+ mix-blend-mode:multiply;
+}
+@media(max-width:1000px){
+ .brand.brand-logo,.brand-mark{width:128px}
+ .brand.brand-logo{height:42px}
+}
+@media(max-width:760px){
+ .brand.brand-logo,.brand-mark{width:116px}
+ .brand.brand-logo{height:38px}
+}
+
+/* === verified credential details === */
+.credential-intro{max-width:690px;margin:2px 0 22px;color:var(--muted);font-size:13px}
+.credential-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:28px}
+.credential-detail{
+ position:relative;
+ min-height:178px;
+ padding:20px 20px 18px;
+ border:1px solid var(--line);
+ border-radius:10px;
+ background:linear-gradient(150deg,rgba(198,154,59,.065),rgba(255,255,255,.9) 46%);
+ overflow:hidden;
+}
+.credential-detail:after{
+ content:"";
+ position:absolute;
+ width:72px;height:72px;
+ right:-29px;bottom:-29px;
+ border:1px solid rgba(198,154,59,.22);
+ border-radius:50%;
+ box-shadow:0 0 0 11px rgba(16,45,70,.018);
+ pointer-events:none;
+}
+.credential-kicker{display:flex;align-items:center;gap:8px;margin-bottom:13px}
+.credential-kicker span{font-size:8px;letter-spacing:.11em;text-transform:uppercase;color:var(--navy-2)}
+.credential-kicker span+span:before{content:"·";margin-right:8px;color:var(--gold)}
+.credential-detail h3{font:25px/1.18 var(--serif);font-weight:400;color:var(--navy);margin:0 0 10px;max-width:500px}
+.credential-detail p{margin:0 0 16px;color:var(--muted);font-size:12px;line-height:1.65;max-width:560px}
+.credential-verification-label{display:flex;align-items:center;gap:8px;padding-top:2px;margin-bottom:10px;color:var(--navy-2);font-size:9px;letter-spacing:.09em;text-transform:uppercase}
+.credential-verification-label>span:first-child{display:grid;place-items:center;width:20px;height:20px;border:1px solid rgba(198,154,59,.5);border-radius:50%;color:var(--gold)}
+@media(max-width:760px){
+ .credential-detail-grid{grid-template-columns:1fr}
+ .credential-detail{min-height:auto}
+ .credential-detail h3{font-size:22px}
+}
