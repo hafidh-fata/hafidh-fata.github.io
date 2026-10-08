@@ -1122,3 +1122,22 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  .cv-msc>small{font-size:5.4pt;margin-bottom:.5mm}
  .cv-msc>span{font-size:5.7pt}
 }
+
+/* === CV credentials and printable academic identifiers === */
+.cv-credential-badges{display:flex;gap:8px;align-items:flex-start;margin-top:10px;min-height:118px;overflow:hidden}
+.cv-credential-badges>div{transform:scale(.72);transform-origin:top left;width:80px!important;margin-right:-22px}
+.cv-profile-ids{gap:6px}
+.cv-profile-ids a{display:block}
+.cv-profile-ids strong{display:block;font-size:8.2px;line-height:1.15;color:#344b5d;font-weight:650}
+.cv-profile-ids span{display:block;font:7.8px/1.3 monospace;color:#687681;margin-top:1px;overflow-wrap:anywhere}
+@media(max-width:760px){
+ .cv-credential-badges{min-height:150px;gap:16px}
+ .cv-credential-badges>div{transform:scale(.82);margin-right:-12px}
+}
+@media print{
+ .cv-credential-badges{display:none!important}
+ .cv-credential-text{display:grid!important}
+ .cv-profile-ids{gap:1.2mm!important}
+ .cv-profile-ids strong{font-size:5.8pt!important}
+ .cv-profile-ids span{font-size:5.5pt!important}
+}
