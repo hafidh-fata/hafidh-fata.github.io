@@ -1099,3 +1099,26 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  a{color:inherit!important;text-decoration:none!important}
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+/* === formal MSC2020 classification === */
+.msc-block{margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.msc-block>small,.cv-msc>small{display:block;margin-bottom:8px;font-size:8px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.msc-list{display:flex;flex-wrap:wrap;gap:7px}
+.msc-list>span{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:#fff}
+.msc-list b{font:9px/1 monospace;color:var(--navy);font-weight:700}
+.msc-list em{font-style:normal;font-size:8px;color:var(--muted)}
+.cv-research-summary{margin:0 0 9px;font-size:8.8px;line-height:1.45;color:#5f6e79}
+.cv-msc{display:grid;gap:4px}
+.cv-msc>span{font-size:8px;line-height:1.35;color:#65727c}
+.cv-msc b{font-family:monospace;color:#2a455a;margin-right:4px}
+@media(max-width:760px){
+ .msc-list{display:grid;grid-template-columns:1fr}
+ .msc-list>span{border-radius:7px;justify-content:flex-start}
+ .msc-list em{font-size:9px}
+}
+@media print{
+ .cv-research-summary{font-size:6pt!important;margin-bottom:1.5mm}
+ .cv-msc{gap:.7mm}
+ .cv-msc>small{font-size:5.4pt;margin-bottom:.5mm}
+ .cv-msc>span{font-size:5.7pt}
+}
