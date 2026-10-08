@@ -1222,3 +1222,49 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  .cv-credential-grid{display:none!important}
  .cv-credential-print{display:grid!important}
 }
+
+/* === credentials moved to main CV column === */
+.cv-main-credentials .cv-credential-grid{
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;
+}
+.cv-main-credentials .cv-credential-card{
+ grid-template-columns:92px minmax(0,1fr);
+ min-height:116px;
+ padding:10px 12px;
+}
+.cv-main-credentials .cv-credential-badge{
+ width:86px;
+ height:96px;
+}
+.cv-main-credentials .cv-credential-badge>div{
+ transform:scale(.61);
+ transform-origin:top left;
+ width:110px!important;
+}
+.cv-main-credentials .cv-credential-copy strong{
+ font-size:10.5px;
+ line-height:1.3;
+}
+.cv-main-credentials .cv-credential-copy span{
+ font-size:8.4px;
+}
+@media(max-width:760px){
+ .cv-main-credentials .cv-credential-grid{grid-template-columns:1fr}
+ .cv-main-credentials .cv-credential-card{
+  grid-template-columns:90px minmax(0,1fr);
+  min-height:112px;
+ }
+}
+@media print{
+ .cv-main-credentials .cv-credential-grid{display:none!important}
+ .cv-main-credentials .cv-credential-print{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1.5mm 4mm;
+ }
+ .cv-main-credentials .cv-credential-print li{
+  border-top:.35pt solid #d8dde1;
+  padding-top:1.2mm;
+ }
+}
