@@ -1343,3 +1343,6 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
   padding-top:1.2mm;
  }
 }
+
+/* Ensure browser hides a failed issuer image despite gallery display rules. */
+.accredible-certificate-image[hidden]{display:none!important}
