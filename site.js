@@ -291,4 +291,16 @@ function injectPublicationSchema(){
  const node=document.createElement("script");node.id="publication-schema";node.type="application/ld+json";
  node.textContent=JSON.stringify({"@context":"https://schema.org","@graph":graph});document.head.appendChild(node);
 }
+/* Use the issuer's genuine badge image when available; otherwise retain the supplied certificate. */
+document.querySelectorAll("img.accredible-badge-image[data-fallback-src]").forEach(img=>{
+ img.addEventListener("error",()=>{
+  if(img.dataset.fallbackApplied==="1"){
+   img.style.display="none";
+   return;
+  }
+  img.dataset.fallbackApplied="1";
+  img.closest(".cv-badge--google, .credential-google-certificate")?.classList.add("is-certificate-fallback");
+  img.src=img.dataset.fallbackSrc;
+ });
+});
 fetch("/publications.json").then(r=>r.ok?r.json():Promise.reject()).then(data=>{publicationData=data;renderPublicationViews()}).catch(()=>{});
