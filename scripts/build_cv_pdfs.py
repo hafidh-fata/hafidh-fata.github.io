@@ -65,6 +65,7 @@ def main() -> None:
                     if " ".join(page.locator('[data-i18n="academicRankValue"]').first.inner_text().split()) != expected_rank:
                         raise RuntimeError(f"Wrong academic rank in source HTML for {language}")
                     extracted = " ".join(body.split())
+                    print(f"PDF {language} extracted text ({len(extracted)} chars): {extracted[:1800]!r}", flush=True)
                     if "Hafidh Khoerul Fata" not in extracted:
                         raise RuntimeError(f"CV author missing from rendered PDF: {output}")
                     if "Asisten" not in extracted or "Ahli" not in extracted:
