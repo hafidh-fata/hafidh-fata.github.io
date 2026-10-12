@@ -1130,8 +1130,7 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
 .cv-profile-ids strong{display:block;font-size:8.2px;line-height:1.15;color:#344b5d;font-weight:650}
 .cv-profile-ids span{display:block;font:7.8px/1.3 monospace;color:#687681;margin-top:1px;overflow-wrap:anywhere}
 
-/* Credential gallery: official Credly embeds plus a clearly typographic certificate frame.
-   Uniform 150x270 card dimensions, no generated imitation of an issuer's badge. */
+/* Credentials — matching outer frames at exactly 150 × 270 px. Credly content is embedded inside a fixed slot; Google has an original text-only certificate frame. */
 .cv-main-credentials .cv-credential-gallery,
 .credential-grid{
  display:grid;
@@ -1143,72 +1142,72 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  margin-inline:auto;
 }
 .cv-main-credentials .cv-credential-gallery{padding-top:12px}
-.cv-main-credentials .cv-credential-gallery>.cv-badge,
-.credential-grid>div,
-.credential-grid>.credential-text-frame{
- box-sizing:border-box;
- width:150px;
- min-width:150px;
- max-width:150px;
- height:270px;
- min-height:270px;
- margin:0;
- padding:0;
-}
-.cv-main-credentials .cv-credential-gallery>.cv-badge{
- display:flex;
- flex-direction:column;
- justify-content:flex-start;
- align-items:center;
- overflow:hidden;
-}
-.cv-main-credentials .cv-badge>div,
-.credential-grid>div{
- width:150px;
- max-width:150px;
- padding:0;
- transform:none;
-}
-.cv-main-credentials .cv-badge iframe,
-.credential-grid>div iframe{
- display:block;
+.cv-main-credentials .cv-credential-gallery > .credential-slot,
+.credential-grid > .credential-slot{
+ box-sizing:border-box!important;
  width:150px!important;
+ min-width:150px!important;
+ max-width:150px!important;
  height:270px!important;
- border:0;
- max-width:150px;
-}
-/* Bespoke text-only certificate card (not an issuer-issued image badge) */
-.cv-main-credentials .cv-credential-gallery>.credential-text-frame,
-.credential-grid>.credential-text-frame{
- box-sizing:border-box;
+ min-height:270px!important;
+ max-height:270px!important;
+ margin:0!important;
+ padding:0!important;
+ border:1px solid #dedfe1!important;
+ border-radius:5px!important;
+ background:#fff!important;
+ overflow:hidden!important;
  display:flex;
  flex-direction:column;
- justify-content:space-between;
- align-items:stretch;
- overflow:hidden;
- width:150px;
- min-width:150px;
- max-width:150px;
- height:270px;
- min-height:270px;
- gap:0;
- margin:0;
- padding:0;
- border:1px solid #dedfe1;
- border-radius:5px;
- background:#ffffff;
+ align-items:center;
+ justify-content:flex-start;
+ align-self:start;
+ transform:none!important;
+}
+/* Provider iframe stays within frame; issuer artwork is not stretched. */
+.cv-main-credentials .credential-slot--credly>div,
+.credential-grid .credential-slot--credly>div{
+ width:148px!important;
+ min-width:148px!important;
+ max-width:148px!important;
+ height:268px!important;
+ min-height:268px!important;
+ margin:0!important;
+ padding:0!important;
+ transform:none!important;
+}
+.cv-main-credentials .credential-slot--credly iframe,
+.credential-grid .credential-slot--credly iframe{
+ display:block!important;
+ box-sizing:border-box!important;
+ width:148px!important;
+ height:268px!important;
+ min-width:148px!important;
+ max-width:148px!important;
+ min-height:268px!important;
+ max-height:268px!important;
+ margin:0!important;
+ padding:0!important;
+ border:0!important;
+}
+/* Google: typographic frame rather than an unofficial imitation of an issuer badge. */
+.cv-main-credentials .credential-slot.credential-text-frame,
+.credential-grid .credential-slot.credential-text-frame{
+ display:flex!important;
+ align-items:stretch!important;
+ justify-content:space-between!important;
+ gap:0!important;
  color:#102d46;
  text-decoration:none;
- transform:none;
 }
 .credential-text-frame .credential-type-top{
- flex:0 0 auto;
- padding:15px 8px 0;
+ display:block;
+ padding:15px 7px 0;
  text-align:center;
- font-size:8px;
- letter-spacing:.1em;
- line-height:1.45;
+ font-size:7.6px;
  font-weight:650;
+ letter-spacing:.075em;
+ line-height:1.4;
  color:#566d7b;
 }
 .credential-text-frame .credential-type-center{
@@ -1216,77 +1215,67 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  min-height:0;
  display:flex;
  flex-direction:column;
- align-items:center;
  justify-content:center;
- gap:10px;
- padding:8px 10px 12px;
+ align-items:center;
+ gap:11px;
+ padding:8px 9px;
+ text-align:center;
 }
 .credential-text-frame .credential-type-mark{
  box-sizing:border-box;
  display:grid;
  place-items:center;
- width:58px;
- height:58px;
- flex:0 0 58px;
- border-radius:50%;
+ flex:0 0 54px;
+ width:54px;
+ height:54px;
  border:2px solid #c69a3b;
+ border-radius:50%;
  outline:1px solid #e9ddc3;
  outline-offset:4px;
- font:italic 30px/1 Georgia,'Times New Roman',serif;
+ font:italic 28px/1 Georgia,'Times New Roman',serif;
  color:#102d46;
 }
 .credential-text-frame .credential-type-name{
- display:block;
- font:normal 17px/1.13 Georgia,'Times New Roman',serif;
+ font:normal 15px/1.2 Georgia,'Times New Roman',serif;
  text-align:center;
- letter-spacing:-.4px;
  color:#102d46;
+ letter-spacing:-.2px;
+ overflow-wrap:break-word;
 }
 .credential-text-frame .credential-type-level{
- font-size:7.5px;
- letter-spacing:.13em;
+ font-size:7px;
  font-weight:650;
- line-height:1.35;
- text-align:center;
+ letter-spacing:.13em;
+ line-height:1.4;
  color:#9f7b33;
 }
 .credential-text-frame .credential-type-foot{
- display:flex;
  flex:0 0 40px;
- justify-content:center;
+ display:flex;
  align-items:center;
+ justify-content:center;
  width:100%;
- padding:7px 5px;
+ padding:6px;
+ box-sizing:border-box;
  border-top:1px solid #e1e3e4;
  background:#f1f2f2;
  font-size:7.5px;
- line-height:1.35;
- letter-spacing:.045em;
- text-align:center;
+ line-height:1.3;
+ letter-spacing:.03em;
  color:#596a76;
+ text-align:center;
 }
 .credential-text-frame:hover,
-.credential-text-frame:focus-visible{
- border-color:#c69a3b!important;
-}
-.credential-detail-grid:has(.credential-detail:nth-child(3)){
- grid-template-columns:repeat(3,minmax(0,1fr));
-}
+.credential-text-frame:focus-visible{border-color:#c69a3b!important}
+.credential-detail-grid:has(.credential-detail:nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))}
 .cv-credential-print{display:none}
 @media(max-width:1000px){
- .credential-detail-grid:has(.credential-detail:nth-child(3)){
-  grid-template-columns:repeat(2,minmax(0,1fr));
- }
+ .credential-detail-grid:has(.credential-detail:nth-child(3)){grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
- .credential-detail-grid:has(.credential-detail:nth-child(3)){
-  grid-template-columns:1fr;
- }
+ .credential-detail-grid:has(.credential-detail:nth-child(3)){grid-template-columns:1fr}
  .cv-main-credentials .cv-credential-gallery,
- .credential-grid{
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:12px;
- }
+ .credential-grid{gap:12px}
 }
 @media print{
  .cv-main-credentials .cv-credential-gallery{display:none!important}
