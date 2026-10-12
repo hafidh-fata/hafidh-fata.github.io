@@ -1292,3 +1292,40 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  .cv-profile-ids strong{font-size:5.8pt!important}
  .cv-profile-ids span{font-size:5.5pt!important}
 }
+
+/* Downloadable PDF action, outside the printable A4 document. */
+.cv-actions{
+ box-sizing:border-box;
+ width:min(940px,calc(100% - 28px));
+ max-width:940px;
+ margin:0 auto 13px;
+ display:flex;
+ justify-content:flex-end;
+ align-items:center;
+ gap:12px;
+}
+.cv-download-pdf{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:8px;
+ padding:10px 16px;
+ min-height:40px;
+ border-radius:7px;
+ border:1px solid #102d46;
+ background:#102d46;
+ color:#fff;
+ font-size:12px;
+ font-weight:650;
+ text-decoration:none;
+ letter-spacing:.01em;
+ transition:background .2s ease,border-color .2s ease;
+}
+.cv-download-pdf:hover,.cv-download-pdf:focus-visible{background:#173f61;border-color:#173f61;color:#fff}
+.cv-download-pdf svg{flex:0 0 16px}
+.cv-actions-note{font-size:10px;color:#64707a}
+@media(max-width:760px){
+ .cv-actions{margin-bottom:12px;justify-content:flex-start;gap:10px}
+ .cv-download-pdf{padding:10px 13px}
+}
+@media print{.cv-actions{display:none!important}}
