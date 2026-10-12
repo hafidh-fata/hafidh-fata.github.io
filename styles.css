@@ -1181,64 +1181,98 @@ nav a[aria-current="page"]:after{display:none!important;content:none!important}
  .cv-profile-ids span{font-size:5.5pt!important}
 }
 
-/* Google for Education certificate joins credential gallery */
+/* Google for Education badge — aligned with Credly badges */
 .cv-main-credentials .cv-badge.cv-badge--google{
  box-sizing:border-box;
- flex:0 1 230px;
- width:230px;
- min-height:0;
+ flex:0 0 150px;
+ width:150px;
+ min-height:270px;
  display:flex;
  flex-direction:column;
  align-items:center;
- justify-content:center;
- align-self:flex-start;
+ justify-content:flex-start;
+ gap:6px;
+ padding:0;
+ border:0;
+ border-radius:0;
+ background:transparent;
+}
+.cv-badge--google img{
+ display:block;
+ width:150px;
+ height:150px;
+ max-width:100%;
+ object-fit:contain;
+ background:transparent;
+}
+.cv-badge--google .cv-badge-caption{display:none}
+.cv-main-credentials .cv-badge--google:hover{transform:none}
+.cv-main-credentials .cv-badge--google.is-certificate-fallback{
+ flex:0 1 230px;
+ width:230px;
+ min-height:0;
  gap:7px;
  padding:9px;
  border:1px solid var(--line);
  border-radius:8px;
  background:#fff;
- transition:border-color .18s ease,transform .18s ease;
 }
-.cv-main-credentials .cv-badge--google:hover{
- border-color:var(--gold);
- transform:translateY(-2px);
-}
-.cv-badge--google img,
-.credential-google-certificate img{
- display:block;
+.cv-badge--google.is-certificate-fallback img{
  width:100%;
  height:auto;
+ max-height:none;
  object-fit:contain;
- background:#fff;
 }
-.cv-badge-caption{
- font-size:9px;
- line-height:1.3;
+.cv-badge--google.is-certificate-fallback .cv-badge-caption{
+ display:block;
  color:var(--navy);
- letter-spacing:.02em;
+ font-size:9px;
  text-align:center;
 }
 .credential-detail-grid:has(.credential-detail:nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))}
 .credential-google-certificate{
- width:min(250px,100%);
- min-height:160px;
+ width:150px;
+ min-height:270px;
  display:flex;
  flex-direction:column;
  align-items:center;
- justify-content:center;
+ justify-content:flex-start;
  gap:10px;
+ padding:0;
+ border:0;
+ background:transparent;
+}
+.credential-google-certificate img{
+ display:block;
+ width:150px;
+ height:150px;
+ object-fit:contain;
+}
+.credential-google-certificate>span{
+ color:var(--navy-2);
+ font-size:10px;
+ text-align:center;
+}
+.credential-google-certificate.is-certificate-fallback{
+ width:min(250px,100%);
+ min-height:160px;
+ justify-content:center;
  padding:10px;
  border:1px solid var(--line);
  border-radius:8px;
 }
-.credential-google-certificate span{font-size:11px;color:var(--navy-2)}
-.credential-google-certificate:hover{border-color:var(--gold)}
+.credential-google-certificate.is-certificate-fallback img{
+ width:100%;
+ height:auto;
+}
+.credential-google-certificate:hover{color:var(--navy)}
 @media(max-width:1000px){
  .credential-detail-grid:has(.credential-detail:nth-child(3)){grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
  .credential-detail-grid:has(.credential-detail:nth-child(3)){grid-template-columns:1fr}
- .cv-main-credentials .cv-badge.cv-badge--google{flex-basis:210px;width:210px}
+ .cv-main-credentials .cv-badge.cv-badge--google{flex-basis:150px;width:150px}
+ .cv-main-credentials .cv-badge.cv-badge--google.is-certificate-fallback{flex-basis:210px;width:210px}
 }
 @media print{
  .cv-main-credentials .cv-badge--google{display:none!important}
