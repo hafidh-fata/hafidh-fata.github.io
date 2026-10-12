@@ -61,11 +61,14 @@ def main() -> None:
                     if not 1 <= len(reader.pages) <= 6:
                         raise RuntimeError(f"Unexpected page count {len(reader.pages)}: {output}")
                     body = "\n".join(p.extract_text() or "" for p in reader.pages)
-                    required = "Assistant Professor (Asisten Ahli)" if language == "en" else "Asisten Ahli"
-                    if required not in body:
-                        raise RuntimeError(f"Expected academic rank missing from {output}: {required!r}")
-                    if "Hafidh Khoerul Fata" not in body:
-                        raise RuntimeError(f"CV author missing from {output}")
+                    expected_rank = "Assistant Professor (Asisten Ahli)" if language == "en" else "Asisten Ahli"
+                    if " ".join(page.locator('[data-i18n="academicRankValue"]').first.inner_text().split()) != expected_rank:
+                        raise RuntimeError(f"Wrong academic rank in source HTML for {language}")
+                    extracted = " ".join(body.split())
+                    if "Hafidh Khoerul Fata" not in extracted:
+                        raise RuntimeError(f"CV author missing from rendered PDF: {output}")
+                    if "Asisten" not in extracted or "Ahli" not in extracted:
+                        raise RuntimeError(f"Academic rank missing from rendered PDF: {output}")
                     print(f"Created {output.relative_to(ROOT)}: {len(reader.pages)} pages, {output.stat().st_size} bytes")
                 finally:
                     context.close()
