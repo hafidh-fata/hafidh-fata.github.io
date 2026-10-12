@@ -45,7 +45,7 @@ def main() -> None:
                         page.locator('[data-lang="id"]').click()
                     else:
                         page.locator('[data-lang="en"]').click()
-                    page.wait_for_function("(lang) => document.documentElement.lang === lang", language)
+                    page.wait_for_function("(lang) => document.documentElement.lang === lang", arg=language)
                     page.evaluate("() => document.fonts.ready")
                     page.emulate_media(media="print")
                     output.parent.mkdir(parents=True, exist_ok=True)
