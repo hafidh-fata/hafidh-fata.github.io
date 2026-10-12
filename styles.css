@@ -177,7 +177,7 @@ footer{border-top:1px solid var(--line);padding:26px 0}
 .large-tags{align-content:start}
 .cv-page .publication h2{font-size:22px}
 @media print{
- header,footer,.print-button,.languages,.skip{display:none!important}
+ body>header,body>footer,.print-button,.languages,.skip{display:none!important}
  body{background:#fff;color:#000;font-size:11pt}
  .wrap{width:100%;max-width:none}
  .section,.page-hero{padding:18px 0;break-inside:avoid}
