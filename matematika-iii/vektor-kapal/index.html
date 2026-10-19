@@ -29,6 +29,12 @@ h1{font-size:clamp(23px,2.35vw,34px);letter-spacing:-.038em;line-height:1.12;mar
 .result-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}#response-status{font-size:11px;color:#54717d;margin-top:10px;line-height:1.5}
 @media(max-width:580px){.tabs{flex-wrap:wrap}.tab{flex:1 1 44%}}
 #old-actions[hidden]{display:none!important}
+.simple-force{border:1px solid #dfebee;background:#f7fbfc;border-radius:12px;padding:13px;margin:10px 0}
+.simple-force strong{font-size:12px}.simple-force .slrow{margin:12px 0}.simple-force .slheader{margin-bottom:9px}
+.simple-case{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:9px 0 13px}
+.simple-case .preset{font-size:11px}.simple-result{background:#f3f9fa;border:1px solid #d9e8ea;border-radius:11px;padding:13px;margin:14px 0}
+.simple-result .vectorline{font-size:13px}.simple-note{font-size:11px;color:#617986;line-height:1.6}
+#old-actions[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -43,7 +49,7 @@ h1{font-size:clamp(23px,2.35vw,34px);letter-spacing:-.038em;line-height:1.12;mar
  <nav class="tabs" role="tablist" aria-label="Pilih mode simulasi">
   <button class="tab active" id="tab-load" role="tab" aria-selected="true" aria-controls="mode-load" data-mode="load">01 · Gaya &amp; momen (ℝ⁶)</button>
   <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="mode-motion" data-mode="motion">02 · Gerak kapal (6 DOF)</button>
-  <button class="tab" id="tab-result" role="tab" aria-selected="false" aria-controls="mode-result" data-mode="result">03 · Resultan &amp; respons gabungan</button>
+  <button class="tab" id="tab-result" role="tab" aria-selected="false" aria-controls="mode-result" data-mode="result">03 · Resultan dua gaya</button>
  </nav>
 </header>
 <section class="main">
@@ -69,20 +75,21 @@ h1{font-size:clamp(23px,2.35vw,34px);letter-spacing:-.038em;line-height:1.12;mar
     <div class="group-title"><b>ROTASI</b><span>sudut (°)</span></div><div id="rotation-controls"></div>
    </div>
 
-   <div id="mode-result" class="mode-only" role="tabpanel" aria-labelledby="tab-result" hidden>
-    <div class="group-title"><b>PRESET GABUNGAN</b><span>Tiga titik kerja</span></div>
-    <div class="casebuttons">
-     <button type="button" class="preset" data-case="combined">Translasi + rotasi</button>
-     <button type="button" class="preset" data-case="couple">ΣF = 0, ΣM ≠ 0</button>
-     <button type="button" class="preset" data-case="translate">ΣF ≠ 0, ΣM = 0</button>
-     <button type="button" class="preset" data-case="opposed">Gaya berlawanan</button>
-    </div>
-    <p class="note">Ubah titik kerja r (meter) dan komponen tiap gaya F (kN). Resultan dihitung terhadap O.</p>
-    <div id="applied-forces"></div>
-    <div class="resultbox"><b>Resultan gaya dan momen</b><div id="result-vectors"></div><div id="result-class"></div></div>
-    <div class="result-actions"><button type="button" class="btn primary" id="response-play">▶ Jalankan gerak gabungan</button><button type="button" class="btn" id="response-restart">↺ Kembali ke awal</button></div>
-    <div id="response-status" aria-live="polite">t = 0 s — siap</div>
-   </div>
+
+<div id="mode-result" class="mode-only" role="tabpanel" aria-labelledby="tab-result" hidden>
+ <div class="group-title"><b>PILIH CONTOH</b><span>dua gaya</span></div>
+ <div class="simple-case">
+ <button class="preset" data-case="searah">Searah</button>
+ <button class="preset" data-case="opposite">Berlawanan</button>
+ <button class="preset" data-case="perpendicular">Tegak lurus</button>
+ <button class="preset" data-case="combined">Gabungan</button>
+ </div>
+ <p class="simple-note">Gaya F₁ bekerja di depan (+3 m) dan F₂ di belakang (−3 m). Sudut diukur dari arah +x menuju +y.</p>
+ <div id="applied-forces"></div>
+ <div class="simple-result"><b>Resultan</b><div id="result-vectors"></div><p class="simple-note" id="result-class"></p></div>
+ <div class="result-actions"><button class="btn primary" id="response-play">▶ Lihat geraknya</button><button class="btn" id="response-restart">↺ Ulangi</button></div>
+ <div id="response-status" class="simple-note" aria-live="polite">Siap</div>
+</div>
    <div class="controlend" id="old-actions"><button class="btn primary" id="reset">↺ Nolkan semua</button><button class="btn" id="demo">▶ Demo enam arah</button></div>
    <div class="toggles"><label class="toggle"><input type="checkbox" id="showAxes" checked> Sumbu x–y–z</label><label class="toggle"><input type="checkbox" id="showGrid" checked> Kisi acuan</label><label class="toggle"><input type="checkbox" id="showLabels" checked> Label vektor</label></div>
    <div class="mathnote" id="mathnote"><strong>Ingat:</strong> gaya adalah vektor di ℝ³ dan momen juga vektor di ℝ³. Keenam komponennya disusun menjadi vektor beban tergeneralisasi di ℝ⁶. Satuan gaya dan momen berbeda, sehingga tidak digabungkan menjadi satu norma fisik.</div>
@@ -121,13 +128,8 @@ const poseSpecs={
 let mode='load',az=-110*Math.PI/180,el=32*Math.PI/180,zoom=1,viewPreset='perspective';
 let width=850,height=550,dpr=1,dirty=true,lastFrame=0,playing=false,demoT=0,lastMode='load';
 let pointer=null;
-const applied=[{r:[4,1,0],f:[40,20,5]},{r:[-4,-2,0],f:[0,-40,10]},{r:[0,2,2],f:[5,25,-30]}];
-const cases={
- combined:[[[4,1,0],[40,20,5]],[[-4,-2,0],[0,-40,10]],[[0,2,2],[5,25,-30]]],
- couple:[[[3,0,0],[0,40,0]],[[-3,0,0],[0,-40,0]],[[0,0,0],[0,0,0]]],
- translate:[[[2,1,0],[30,0,0]],[[2,-1,0],[30,0,0]],[[0,0,0],[0,0,0]]],
- opposed:[[[0,0,0],[35,25,0]],[[0,0,0],[-15,-10,0]],[[0,0,0],[0,0,0]]]
-};
+const applied=[{r:[3,0,0],f:[0,30,0],mag:30,angle:90},{r:[-3,0,0],f:[0,30,0],mag:30,angle:90}];
+const cases={searah:[[30,90],[30,90]],opposite:[[30,90],[30,270]],perpendicular:[[40,0],[40,90]],combined:[[50,30],[35,120]]};
 const responsePose={x:0,y:0,z:0,roll:0,pitch:0,yaw:0};
 let sumF=[0,0,0],sumM=[0,0,0],simPlaying=false,simTime=0,simLast=0;
 const V=(x=0,y=0,z=0)=>[x,y,z],add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s],dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>Math.hypot(...a),unit=a=>mul(a,1/(norm(a)||1)),rad=n=>n*Math.PI/180,fmt=n=>(Math.abs(n)<1e-8?0:n).toLocaleString('id-ID',{maximumFractionDigits:1});
@@ -197,87 +199,65 @@ function setMode(next){stopDemo();mode=next;document.querySelectorAll('.tab').fo
  $('legend').innerHTML=next==='load'?'<div class="legend"><span class="dot" style="background:var(--fx)"></span>Gaya (F)</div><div class="legend"><span class="dot" style="background:var(--mx)"></span>Momen (M)</div><div class="legend"><span class="dot" style="background:#a3b7bc"></span>Sumbu kapal</div>':'<div class="legend"><span class="dot" style="background:var(--fx)"></span>Translasi</div><div class="legend"><span class="dot" style="background:var(--mx)"></span>Rotasi</div><div class="legend"><span class="dot" style="background:#a3b7bc"></span>Posisi awal</div>';
  $('old-actions').hidden=next==='result';
  if(next==='result'){
-  $('ctitle').textContent='Resultan tiga gaya pada kapal';
-  $('csubtitle').textContent='Tiga gaya, titik kerja berbeda, resultan dan animasi gabungan.';
-  $('viewtitle').textContent='Diagram 3D · Resultan dan respons';
+  $('ctitle').textContent='Resultan dua gaya pada kapal';
+  $('csubtitle').textContent='Atur besar dan arah dua gaya. Posisi kerjanya tetap.';
+  $('viewtitle').textContent='Diagram 3D · Dua gaya dan resultannya';
   $('readout-title').textContent='Besaran resultan secara terpisah';
-  $('mathnote').innerHTML='<strong>Model ilustratif:</strong> massa kapal 600 ton, momen inersia diagonal (10.000; 25.000; 30.000) ton·m², gaya konstan dalam sumbu awal. Perpindahan = ½(ΣF/m)t²; sudut ≈ ½(I⁻¹ΣM)t². Model tanpa gaya apung, redaman atau hidrodinamika; bukan prediksi gerak kapal nyata.';
+  $('mathnote').innerHTML='<strong>Perhatikan:</strong> gerakan kapal hanya ilustrasi arah kecenderungan translasi dan yaw, tidak memakai model hidrodinamika. Panjang gerak dan besar putaran didramatisasi agar terlihat.';
   $('formula').innerHTML='F<sub>R</sub> = Σ F<sub>i</sub>; &nbsp; M<sub>R</sub> = Σ (r<sub>i</sub> × F<sub>i</sub>)';
-  $('formula-caption').textContent='r diukur dari titik O (m), F dalam kN dan M dalam kN·m. Gerak simulasi memakai pendekatan benda tegar terdekopel.';
-  $('questions').innerHTML='<li>Jalankan preset translasi + rotasi. Jelaskan gerakan yang terjadi bersamaan.</li><li>Pilih ΣF = 0, ΣM ≠ 0. Mengapa kapal tetap berotasi?</li><li>Geser satu titik kerja r dan amati perubahan ΣM.</li>';
-  $('legend').innerHTML='<div class="legend"><span class="dot" style="background:#497bc3"></span>Gaya Fᵢ</div><div class="legend"><span class="dot" style="background:#087e85"></span>ΣF</div><div class="legend"><span class="dot" style="background:#b55985"></span>ΣM (aksial)</div>';
+  $('formula-caption').textContent='Titik gaya tetap pada r₁=(3,0,0) m dan r₂=(−3,0,0) m. Pada bidang horizontal, Mz=3F₁y−3F₂y.';
+  $('questions').innerHTML='<li>Pilih <b>Searah</b> dan amati ΣMz.</li><li>Pilih <b>Berlawanan</b>. Mengapa ΣF = 0 tetapi kapal masih dapat berputar?</li><li>Pilih <b>Gabungan</b> lalu jalankan animasi.</li>';
+  $('legend').innerHTML='<div class="legend"><span class="dot" style="background:#3c77db"></span>F₁</div><div class="legend"><span class="dot" style="background:#d07d21"></span>F₂</div><div class="legend"><span class="dot" style="background:#087e85"></span>ΣF</div><div class="legend"><span class="dot" style="background:#b55985"></span>ΣMz</div>';
  }
  document.querySelectorAll('.preset').forEach(e=>e.classList.remove('selected'));updateMetrics();dirty=true;requestAnimationFrame(draw)}
 function choosePreset(kind,key,target){stopDemo();let set=kind==='load'?load:motion,keys=Object.keys(set);for(const k of keys)set[k]=0;set[key]=kind==='load'?(key.startsWith('F')?65:200):({x:13,y:9,z:4,roll:20,pitch:14,yaw:30}[key]);updateAllInputs();updateMetrics();document.querySelectorAll('.preset').forEach(e=>e.classList.toggle('selected',e===target));dirty=true;requestAnimationFrame(draw)}
 function stopDemo(){playing=false;lastFrame=0;$('demo').textContent='▶ Demo enam arah'}
 
+
 function resultMarkers(){
  if(mode!=='result')return;
- const palette=['#376fae','#cb8834','#855ec0'];
- applied.forEach((item,i)=>{
-  if(norm(item.f)<.001)return;
-  const p=poseP([item.r[0]*.45,item.r[1]*.45,.78+item.r[2]*.35]);
-  const q=add(p,mul(item.f,.025));screenArrow(p,q,palette[i],3.3);label(q,'F'+(i+1),palette[i],4,-8);
- });
- const p=poseP([0,0,2.0]);
- if(norm(sumF)>.001){const q=add(p,mul(sumF,.03));screenArrow(p,q,'#087e85',5);label(q,'ΣF','#087e85',8,-9)}
- if(norm(sumM)>.001){const q=add(p,mul(sumM,.006));screenArrow(p,q,'#b55985',4);label(q,'ΣM aksial','#b55985',8,16)}
+ const cs=['#3c77db','#d07d21'];
+ applied.forEach((a,i)=>{if(norm(a.f)<.01)return;const p=poseP([a.r[0],0,.9]),q=add(p,mul(a.f,.045));screenArrow(p,q,cs[i],4);label(q,'F'+(i+1),cs[i]);});
+ const o=poseP([0,0,1.75]);
+ if(norm(sumF)>.01){const q=add(o,mul(sumF,.045));screenArrow(o,q,'#087e85',5.5);label(q,'ΣF','#087e85')}
+ if(Math.abs(sumM[2])>.01){const q=add(o,[0,0,Math.sign(sumM[2])*Math.min(2,Math.abs(sumM[2])/80+.6)]);screenArrow(o,q,'#b55985',3.5);label(q,'ΣMz','#b55985')}
 }
 function renderResult(){
  sumF=[0,0,0];sumM=[0,0,0];
- for(const a of applied){sumF=add(sumF,a.f);sumM=add(sumM,cross(a.r,a.f))}
- const fmtv=a=>'('+a.map(fmt).join('; ')+')';
- $('result-vectors').innerHTML='<div class="vectorline">ΣF = '+fmtv(sumF)+' kN</div><div class="vectorline">ΣM = '+fmtv(sumM)+' kN·m</div><div class="vectorline">τ = '+fmtv(sumF.concat(sumM))+'ᵀ</div>';
- const f=norm(sumF)>1e-8,m=norm(sumM)>1e-8;
- $('result-class').textContent=f&&m?'Resultan menyebabkan percepatan translasi dan rotasi.':f?'Resultan momen nol; hanya ada percepatan translasi.':m?'Resultan gaya nol, tetapi tetap ada momen penyebab rotasi.':'Resultan gaya dan momen nol.';
- updateResponse();updateMetrics();dirty=true;requestAnimationFrame(draw);
+ applied.forEach(a=>{const t=a.angle*Math.PI/180;a.f=[a.mag*Math.cos(t),a.mag*Math.sin(t),0].map(x=>Math.abs(x)<1e-8?0:x);sumF=add(sumF,a.f);sumM=add(sumM,cross(a.r,a.f))});
+ const f=sumF.map(x=>Math.abs(x)<1e-8?0:x),mz=Math.abs(sumM[2])<1e-8?0:sumM[2];
+ $('result-vectors').innerHTML='<div class="vectorline">ΣF = ('+fmt(f[0])+'; '+fmt(f[1])+') kN</div><div class="vectorline">|ΣF| = '+fmt(Math.hypot(f[0],f[1]))+' kN</div><div class="vectorline">ΣMz = '+fmt(mz)+' kN·m</div>';
+ const move=norm(sumF)>1e-8,rot=Math.abs(mz)>1e-8;
+ $('result-class').textContent=move&&rot?'Kecenderungan bergerak dan berputar sekaligus.':move?'Kecenderungan bergerak tanpa momen yaw.':rot?'Resultan gaya nol, tetapi masih ada momen pemutar.':'Resultan gaya dan momen nol.';
+ updateResponse();updateMetrics();dirty=true;requestAnimationFrame(draw)
 }
 function updateResponse(){
- const t2=simTime*simTime/2;
- responsePose.x=sumF[0]/600*t2;responsePose.y=sumF[1]/600*t2;responsePose.z=sumF[2]/600*t2;
- responsePose.roll=sumM[0]/10000*t2*180/Math.PI;
- responsePose.pitch=sumM[1]/25000*t2*180/Math.PI;
- responsePose.yaw=sumM[2]/30000*t2*180/Math.PI;
- $('response-status').textContent='t = '+fmt(simTime)+' s · Δr = ('+[responsePose.x,responsePose.y,responsePose.z].map(n=>n.toFixed(2)).join('; ')+') m · roll/pitch/yaw = ('+[responsePose.roll,responsePose.pitch,responsePose.yaw].map(fmt).join('°; ')+ '°)';
+ // Animasi skematis tanpa model massa, inersia, atau hidrodinamika.
+ const u=Math.min(1,simTime/5),a=u*u*(3-2*u),mag=Math.hypot(sumF[0],sumF[1]),dist=Math.min(3,mag*.045)*a;
+ responsePose.x=mag?10*dist*sumF[0]/mag:0;responsePose.y=mag?10*dist*sumF[1]/mag:0;responsePose.z=0;responsePose.roll=0;responsePose.pitch=0;responsePose.yaw=clamp(sumM[2]/5,-32,32)*a;
+ $('response-status').textContent='Ilustrasi '+Math.round(u*100)+'% · arah translasi: '+(mag?'sesuai ΣF':'tidak ada')+' · yaw: '+(Math.abs(sumM[2])<1e-8?'tidak ada':sumM[2]>0?'positif':'negatif');
 }
-function stopResponse(){simPlaying=false;simLast=0;$('response-play').textContent='▶ '+(simTime>=8?'Putar ulang':'Jalankan gerak gabungan')}
+function stopResponse(){simPlaying=false;simLast=0;$('response-play').textContent='▶ '+(simTime>=5?'Putar ulang':'Lihat geraknya')}
 function resetResponse(){stopResponse();simTime=0;updateResponse();dirty=true;requestAnimationFrame(draw)}
-function animateResponse(ts){
- if(!simPlaying||mode!=='result')return;
- if(simLast)simTime=Math.min(8,simTime+Math.min(.06,(ts-simLast)/1000));
- simLast=ts;updateResponse();dirty=true;draw(ts);
- if(simTime>=8){stopResponse();return}
- requestAnimationFrame(animateResponse);
+function animateResponse(ts){if(!simPlaying||mode!=='result')return;if(simLast)simTime=Math.min(5,simTime+Math.min(.06,(ts-simLast)/1000));simLast=ts;updateResponse();dirty=true;draw(ts);if(simTime>=5){stopResponse();return}requestAnimationFrame(animateResponse)}
+function syncResultSliders(){
+ applied.forEach((a,i)=>['mag','angle'].forEach(k=>{const inp=$('result-'+i+'-'+k);if(!inp)return;inp.value=a[k];inp.style.setProperty('--progress',100*(Number(inp.value)-Number(inp.min))/(Number(inp.max)-Number(inp.min))+'%');$('out-'+i+'-'+k).textContent=fmt(a[k])+(k==='mag'?' kN':'°')}))
 }
-function chooseResultCase(id,btn){
- const c=cases[id];if(!c)return;resetResponse();
- c.forEach((f,i)=>{applied[i].r=f[0].slice();applied[i].f=f[1].slice()});
- document.querySelectorAll('#applied-forces input').forEach(inp=>{inp.value=applied[Number(inp.dataset.i)][inp.dataset.field][Number(inp.dataset.j)]});
- document.querySelectorAll('[data-case]').forEach(b=>b.classList.toggle('selected',b===btn));
- renderResult();
-}
+function chooseResultCase(id,btn){if(!cases[id])return;resetResponse();cases[id].forEach((a,i)=>{applied[i].mag=a[0];applied[i].angle=a[1]});syncResultSliders();renderResult();document.querySelectorAll('[data-case]').forEach(b=>b.classList.toggle('selected',b===btn))}
 function buildResultControls(){
  const root=$('applied-forces');
- applied.forEach((item,i)=>{
-  const card=document.createElement('div');card.className='forcecard';
-  const head=document.createElement('h3');head.textContent='F'+(i+1);card.append(head);
-  for(const field of ['r','f']){
-   const row=document.createElement('div');row.className='triple';
-   ['x','y','z'].forEach((axis,j)=>{
-    const label=document.createElement('label');label.textContent=(field==='r'?'r':'F')+axis+' ('+(field==='r'?'m':'kN')+')';
-    const input=document.createElement('input');input.type='number';input.step=field==='r'?1:5;
-    input.min=field==='r'?-8:-100;input.max=field==='r'?8:100;input.value=item[field][j];input.dataset.i=i;input.dataset.field=field;input.dataset.j=j;
-    input.setAttribute('aria-label','Gaya '+(i+1)+' '+field+' '+axis);
-    input.addEventListener('input',()=>{
-     if(input.value.trim()==='')return;const n=Number(input.value);if(!Number.isFinite(n))return;
-     item[field][j]=clamp(n,Number(input.min),Number(input.max));
-     resetResponse();renderResult();document.querySelectorAll('[data-case]').forEach(b=>b.classList.remove('selected'));
-    });
-    label.append(input);row.append(label);
-   });card.append(row);
+ applied.forEach((a,i)=>{
+  const div=document.createElement('div');div.className='simple-force';
+  div.innerHTML='<strong style="color:'+(i?'#d07d21':'#3c77db')+'">F'+(i+1)+(i?' · belakang (−3 m)':' · depan (+3 m)')+'</strong>';
+  for(const k of ['mag','angle']){
+   const p=document.createElement('div');p.className='slrow';const lim=k==='mag'?100:360,step=k==='mag'?5:15;
+   p.innerHTML='<div class="slheader"><label class="slname" for="result-'+i+'-'+k+'">'+(k==='mag'?'Besar gaya':'Sudut arah')+'</label><output class="slval" id="out-'+i+'-'+k+'"></output></div><input type="range" id="result-'+i+'-'+k+'" min="0" max="'+lim+'" step="'+step+'" value="'+a[k]+'" style="--accent:'+(i?'#d07d21':'#3c77db')+'">';
+   p.querySelector('input').addEventListener('input',ev=>{a[k]=Number(ev.target.value);resetResponse();syncResultSliders();renderResult();document.querySelectorAll('[data-case]').forEach(b=>b.classList.remove('selected'))});
+   div.append(p)
   }
-  root.append(card);
+  root.append(div)
  });
+ syncResultSliders()
 }
 
 function setCamera(which){viewPreset=which;if(which==='perspective'){az=rad(-110);el=rad(32)}else if(which==='top'){az=rad(-90);el=rad(89)}else if(which==='side'){az=rad(-90);el=rad(5)}else if(which==='front'){az=rad(0);el=rad(10)}document.querySelectorAll('[data-camera]').forEach(b=>b.classList.toggle('active',b.dataset.camera===which));dirty=true;requestAnimationFrame(draw)}
