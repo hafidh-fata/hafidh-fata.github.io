@@ -19,6 +19,15 @@ h1{font-size:clamp(23px,2.35vw,34px);letter-spacing:-.038em;line-height:1.12;mar
 @media (max-width:830px){.main{grid-template-columns:1fr}.stage{height:clamp(410px,70vw,565px)}.sldesc{display:inline}}
 @media (max-width:580px){.page{padding:14px 10px}.topline{margin-bottom:17px}.tag{display:none}.brand-name{font-size:11px}h1{font-size:25px}.tabs{width:100%;display:flex}.tab{flex:1;padding:11px 7px;font-size:11px}.stage{height:435px}.viewhead{align-items:flex-start;flex-direction:column}.camrow{width:100%}.cam{flex:1}.metric strong{font-size:16px}.metricgrid{gap:14px}.bottom{grid-template-columns:1fr}.readout{padding:9px 11px}.footlegend{gap:8px}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.forcecard{border:1px solid #dce9ec;background:#f8fbfc;border-radius:12px;padding:12px;margin:9px 0}
+.forcecard h3{font-size:12px;margin:0 0 6px}.forcecard .triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0}
+.forcecard label{font-size:10px;color:#526b76;font-weight:650}.forcecard input{display:block;width:100%;min-width:0;margin-top:4px;padding:8px 4px;background:#fff;color:#183c4e;border:1px solid #cfdfe4;border-radius:6px;text-align:center;font-size:12px}
+.casebuttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.casebuttons .preset{font-size:10px}
+.resultbox{background:#f4f9fa;border:1px solid #dbe9ec;border-radius:10px;margin:13px 0;padding:12px;color:#345b69;font-size:11px;line-height:1.55}
+.vectorline{font-family:Cambria,Georgia,serif;border:1px solid #e1e9ec;background:white;padding:8px;border-radius:7px;margin:6px 0}
+.result-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}#response-status{font-size:11px;color:#54717d;margin-top:10px;line-height:1.5}
+@media(max-width:580px){.tabs{flex-wrap:wrap}.tab{flex:1 1 44%}}
 </style>
 </head>
 <body>
@@ -33,6 +42,7 @@ h1{font-size:clamp(23px,2.35vw,34px);letter-spacing:-.038em;line-height:1.12;mar
  <nav class="tabs" role="tablist" aria-label="Pilih mode simulasi">
   <button class="tab active" id="tab-load" role="tab" aria-selected="true" aria-controls="mode-load" data-mode="load">01 · Gaya &amp; momen (ℝ⁶)</button>
   <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="mode-motion" data-mode="motion">02 · Gerak kapal (6 DOF)</button>
+  <button class="tab" id="tab-result" role="tab" aria-selected="false" aria-controls="mode-result" data-mode="result">03 · Resultan &amp; respons gabungan</button>
  </nav>
 </header>
 <section class="main">
@@ -57,7 +67,22 @@ h1{font-size:clamp(23px,2.35vw,34px);letter-spacing:-.038em;line-height:1.12;mar
     <div class="group-title"><b>TRANSLASI</b><span>posisi relatif (m)</span></div><div id="translation-controls"></div>
     <div class="group-title"><b>ROTASI</b><span>sudut (°)</span></div><div id="rotation-controls"></div>
    </div>
-   <div class="controlend"><button class="btn primary" id="reset">↺ Nolkan semua</button><button class="btn" id="demo">▶ Demo enam arah</button></div>
+
+   <div id="mode-result" class="mode-only" role="tabpanel" aria-labelledby="tab-result" hidden>
+    <div class="group-title"><b>PRESET GABUNGAN</b><span>Tiga titik kerja</span></div>
+    <div class="casebuttons">
+     <button type="button" class="preset" data-case="combined">Translasi + rotasi</button>
+     <button type="button" class="preset" data-case="couple">ΣF = 0, ΣM ≠ 0</button>
+     <button type="button" class="preset" data-case="translate">ΣF ≠ 0, ΣM = 0</button>
+     <button type="button" class="preset" data-case="opposed">Gaya berlawanan</button>
+    </div>
+    <p class="note">Ubah titik kerja r (meter) dan komponen tiap gaya F (kN). Resultan dihitung terhadap O.</p>
+    <div id="applied-forces"></div>
+    <div class="resultbox"><b>Resultan gaya dan momen</b><div id="result-vectors"></div><div id="result-class"></div></div>
+    <div class="result-actions"><button type="button" class="btn primary" id="response-play">▶ Jalankan gerak gabungan</button><button type="button" class="btn" id="response-restart">↺ Kembali ke awal</button></div>
+    <div id="response-status" aria-live="polite">t = 0 s — siap</div>
+   </div>
+   <div class="controlend" id="old-actions"><button class="btn primary" id="reset">↺ Nolkan semua</button><button class="btn" id="demo">▶ Demo enam arah</button></div>
    <div class="toggles"><label class="toggle"><input type="checkbox" id="showAxes" checked> Sumbu x–y–z</label><label class="toggle"><input type="checkbox" id="showGrid" checked> Kisi acuan</label><label class="toggle"><input type="checkbox" id="showLabels" checked> Label vektor</label></div>
    <div class="mathnote" id="mathnote"><strong>Ingat:</strong> gaya adalah vektor di ℝ³ dan momen juga vektor di ℝ³. Keenam komponennya disusun menjadi vektor beban tergeneralisasi di ℝ⁶. Satuan gaya dan momen berbeda, sehingga tidak digabungkan menjadi satu norma fisik.</div>
   </div>
@@ -95,10 +120,19 @@ const poseSpecs={
 let mode='load',az=-110*Math.PI/180,el=32*Math.PI/180,zoom=1,viewPreset='perspective';
 let width=850,height=550,dpr=1,dirty=true,lastFrame=0,playing=false,demoT=0,lastMode='load';
 let pointer=null;
+const applied=[{r:[4,1,0],f:[40,20,5]},{r:[-4,-2,0],f:[0,-40,10]},{r:[0,2,2],f:[5,25,-30]}];
+const cases={
+ combined:[[[4,1,0],[40,20,5]],[[-4,-2,0],[0,-40,10]],[[0,2,2],[5,25,-30]]],
+ couple:[[[3,0,0],[0,40,0]],[[-3,0,0],[0,-40,0]],[[0,0,0],[0,0,0]]],
+ translate:[[[2,1,0],[30,0,0]],[[2,-1,0],[30,0,0]],[[0,0,0],[0,0,0]]],
+ opposed:[[[0,0,0],[35,25,0]],[[0,0,0],[-15,-10,0]],[[0,0,0],[0,0,0]]]
+};
+const responsePose={x:0,y:0,z:0,roll:0,pitch:0,yaw:0};
+let sumF=[0,0,0],sumM=[0,0,0],simPlaying=false,simTime=0,simLast=0;
 const V=(x=0,y=0,z=0)=>[x,y,z],add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s],dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>Math.hypot(...a),unit=a=>mul(a,1/(norm(a)||1)),rad=n=>n*Math.PI/180,fmt=n=>(Math.abs(n)<1e-8?0:n).toLocaleString('id-ID',{maximumFractionDigits:1});
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 function rotate(v,rx=0,ry=0,rz=0){let [x,y,z]=v;const cx=Math.cos(rx),sx=Math.sin(rx),cy=Math.cos(ry),sy=Math.sin(ry),cz=Math.cos(rz),sz=Math.sin(rz);[y,z]=[y*cx-z*sx,y*sx+z*cx];[x,z]=[x*cy+z*sy,-x*sy+z*cy];[x,y]=[x*cz-y*sz,x*sz+y*cz];return [x,y,z]}
-function poseP(p){const e=mode==='motion' ? motion:{x:0,y:0,z:0,roll:0,pitch:0,yaw:0};let a=rotate(p,rad(e.roll),rad(e.pitch),rad(e.yaw));return add(a,[e.x/10,e.y/10,e.z/10])}
+function poseP(p){const e=mode==='motion'?motion:mode==='result'?responsePose:{x:0,y:0,z:0,roll:0,pitch:0,yaw:0};let a=rotate(p,rad(e.roll),rad(e.pitch),rad(e.yaw));return add(a,[e.x/10,e.y/10,e.z/10])}
 function camBasis(){const ce=Math.cos(el),se=Math.sin(el),ca=Math.cos(az),sa=Math.sin(az);return {side:[-sa,ca,0],up:[-se*ca,-se*sa,ce],look:[ce*ca,ce*sa,se]}}
 let basis;
 function project(p){const s=Math.min(width/13.3,height/8.8)*zoom;return [width*.51+dot(p,basis.side)*s,height*.52-dot(p,basis.up)*s,dot(p,basis.look)]}
@@ -110,7 +144,7 @@ function label(p,txt,col,offsetX=9,offsetY=-8){if(!$('showLabels').checked)retur
 function axes(){if(!$('showAxes').checked)return;let o=poseP([0,0,.65]);for(const [a,vec,col,txt] of [['x',[2.8,0,0],'#0b999f','+x haluan'],['y',[0,2.3,0],'#3c77db','+y port'],['z',[0,0,2.2],'#14a47d','+z atas']]){let p=poseP(add([0,0,.65],vec));line3(o,p,col,2.3,false,.72);let pp=project(p),oo=project(o);const d=Math.hypot(pp[0]-oo[0],pp[1]-oo[1]);if(d>8){ctx.save();ctx.fillStyle=col;ctx.font='800 11px Segoe UI';ctx.fillText(txt,clamp(pp[0]+5,5,width-78),clamp(pp[1]-6,14,height-7));ctx.restore()}}}
 function water(){const gr=ctx.createLinearGradient(0,0,0,height);gr.addColorStop(0,'#f8fcfd');gr.addColorStop(.52,'#edf7f9');gr.addColorStop(1,'#dfeef3');ctx.fillStyle=gr;ctx.fillRect(0,0,width,height);
  if($('showGrid').checked){const z=-.67;for(let x=-15;x<=15;x+=1){line3([x,-12,z],[x,12,z],'#a8d1da',x===0?1.3:.65,false,x===0?.48:.24)}for(let y=-12;y<=12;y+=1){line3([-15,y,z],[15,y,z],'#a8d1da',y===0?1.3:.65,false,y===0?.48:.24)}}
- let shadowPos=[mode==='motion'?motion.x/10:0,mode==='motion'?motion.y/10:0,-.69];let pts=[];for(let i=0;i<=64;i++){const t=i*2*Math.PI/64;pts.push(add(shadowPos,[4.25*Math.cos(t),1.45*Math.sin(t),0]))}polygon(pts,'#7faab21a',null,1);const p=project([0,0,-.69]);ctx.save();ctx.fillStyle='#99bfcc';ctx.font='600 11px Segoe UI';ctx.fillText('O · TITIK ACUAN',p[0]-10,p[1]+17);ctx.restore();
+ let psh=mode==='result'?responsePose:motion;let shadowPos=[mode==='load'?0:psh.x/10,mode==='load'?0:psh.y/10,-.69];let pts=[];for(let i=0;i<=64;i++){const t=i*2*Math.PI/64;pts.push(add(shadowPos,[4.25*Math.cos(t),1.45*Math.sin(t),0]))}polygon(pts,'#7faab21a',null,1);const p=project([0,0,-.69]);ctx.save();ctx.fillStyle='#99bfcc';ctx.font='600 11px Segoe UI';ctx.fillText('O · TITIK ACUAN',p[0]-10,p[1]+17);ctx.restore();
 }
 const outline=[[-3.85,-.94],[-3.85,.94],[2.15,1.03],[3.08,.69],[3.98,0],[3.08,-.69],[2.15,-1.03]];
 function prismFaces(box,color,out){let [x1,y1,z1,x2,y2,z2]=box;const p=[V(x1,y1,z1),V(x2,y1,z1),V(x2,y2,z1),V(x1,y2,z1),V(x1,y1,z2),V(x2,y1,z2),V(x2,y2,z2),V(x1,y2,z2)];return [[p[0],p[1],p[5],p[4]],[p[1],p[2],p[6],p[5]],[p[2],p[3],p[7],p[6]],[p[3],p[0],p[4],p[7]],[p[4],p[5],p[6],p[7]]].map(a=>({p:a.map(poseP),color,stroke:out}))}
@@ -132,7 +166,7 @@ for(let yy of [-.73,.73]){let a=poseP([2.4,yy,.35]),b=poseP([2.4,yy,.5]);line3(a
 // Bow marker
 const a=poseP([3.14,0,.36]);const b=poseP([3.67,0,.37]);line3(a,b,'#a36b34',2);
 }
-function drawGhost(){if(mode!=='motion')return;const pts=outline.map(a=>[a[0],a[1],.34]);for(let i=0;i<pts.length;i++){line3(pts[i],pts[(i+1)%pts.length],'#88abb5',1.35,true,.55)}const q=project([0,0,.35]);ctx.save();ctx.font='600 10px Segoe UI';ctx.fillStyle='#85a6b0';ctx.fillText('posisi awal',q[0]+7,q[1]+10);ctx.restore()}
+function drawGhost(){if(mode!=='motion'&&mode!=='result')return;const pts=outline.map(a=>[a[0],a[1],.34]);for(let i=0;i<pts.length;i++){line3(pts[i],pts[(i+1)%pts.length],'#88abb5',1.35,true,.55)}const q=project([0,0,.35]);ctx.save();ctx.font='600 10px Segoe UI';ctx.fillStyle='#85a6b0';ctx.fillText('posisi awal',q[0]+7,q[1]+10);ctx.restore()}
 function forceMarkers(){if(mode!=='load')return;const forceDirs={Fx:[1,0,0],Fy:[0,1,0],Fz:[0,0,1]},centre=[0,0,1.28];for(const key of ['Fx','Fy','Fz']){let val=load[key];if(Math.abs(val)<.1)continue;const L=.5+Math.abs(val)/100*3.3;const end=add(centre,mul(forceDirs[key],Math.sign(val)*L));screenArrow(centre,end,specs[key].color,4.5);label(end,`${specs[key].label} = ${val>0?'+':''}${fmt(val)} kN`,specs[key].color,11,-9)}
 // Circular arrows around body axes, using right-handed basis for e1 x e2 = axis.
 const arcs={Mx:{e1:[0,1,0],e2:[0,0,1],start:-.7,r:1.38,ctr:[-.3,0,.10]},My:{e1:[0,0,1],e2:[1,0,0],start:1.35,r:1.73,ctr:[.55,0,.14]},Mz:{e1:[1,0,0],e2:[0,1,0],start:-1.17,r:2.12,ctr:[0,0,.52]}};
@@ -140,16 +174,17 @@ for(const key of ['Mx','My','Mz']){let val=load[key];if(Math.abs(val)<.1)continu
 function motionMarkers(){if(mode!=='motion')return;const centre=poseP([0,0,1.48]);for(const key of ['x','y','z']){let val=motion[key];if(val===0)continue;let e=key==='x'?[1,0,0]:key==='y'?[0,1,0]:[0,0,1];let end=add(centre,mul(e,Math.sign(val)*(.65+1.2*Math.min(1,Math.abs(val)/(key==='z'?6:key==='x'?20:15)))));let c=poseSpecs[key].color;screenArrow(centre,end,c,4);label(end,`${key} = ${val>0?'+':''}${fmt(val)} m`,c)}
 for(const [key,axis,c,r] of [['roll',[1,0,0],motion.roll,1.6],['pitch',[0,1,0],motion.pitch,2.0],['yaw',[0,0,1],motion.yaw,2.2]]){if(!c)continue;let e1=key==='roll'?[0,1,0]:key==='pitch'?[0,0,1]:[1,0,0];let e2=key==='roll'?[0,0,1]:key==='pitch'?[1,0,0]:[0,1,0];let begin=-.85,span=Math.sign(c)*Math.min(1.5,Math.abs(c)/50+0.45)*Math.PI;let pts=[];for(let i=0;i<=44;i++){let t=begin+span*i/44;pts.push(add([0,0,.5],add(mul(e1,r*Math.cos(t)),mul(e2,r*Math.sin(t))))) }const col=poseSpecs[key].color;ctx.save();ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();pts.forEach((p,i)=>{let q=project(p);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])});ctx.stroke();ctx.restore();screenArrow(pts[43],pts[44],col,3);label(pts[44],`${poseSpecs[key].label} = ${c>0?'+':''}${fmt(c)}°`,col,6,20)}
 }
-function draw(timestamp){if(!dirty&&!playing)return;dirty=false;basis=camBasis();ctx.clearRect(0,0,width,height);water();drawGhost();drawHull();axes();forceMarkers();motionMarkers();if(playing){if(lastFrame)demoT+=Math.min(.08,(timestamp-lastFrame)/1000);lastFrame=timestamp;let keys=mode==='load'?['Fx','Fy','Fz','Mx','My','Mz']:['x','y','z','roll','pitch','yaw'];let k=keys[Math.floor(demoT/1.9)%6],amp=mode==='load'?(k[0]==='F'?65:180):({x:11,y:8,z:3,roll:16,pitch:11,yaw:25}[k]);let set=mode==='load'?load:motion;for(let t of keys)set[t]=(t===k?amp*Math.sin((demoT%1.9)/1.9*Math.PI):0);updateAllInputs();updateMetrics();if(demoT>250)demoT=0;dirty=true}requestAnimationFrame(draw)}
+function draw(timestamp){if(!dirty&&!playing)return;dirty=false;basis=camBasis();ctx.clearRect(0,0,width,height);water();drawGhost();drawHull();axes();forceMarkers();motionMarkers();resultMarkers();if(playing){if(lastFrame)demoT+=Math.min(.08,(timestamp-lastFrame)/1000);lastFrame=timestamp;let keys=mode==='load'?['Fx','Fy','Fz','Mx','My','Mz']:['x','y','z','roll','pitch','yaw'];let k=keys[Math.floor(demoT/1.9)%6],amp=mode==='load'?(k[0]==='F'?65:180):({x:11,y:8,z:3,roll:16,pitch:11,yaw:25}[k]);let set=mode==='load'?load:motion;for(let t of keys)set[t]=(t===k?amp*Math.sin((demoT%1.9)/1.9*Math.PI):0);updateAllInputs();updateMetrics();if(demoT>250)demoT=0;dirty=true}requestAnimationFrame(draw)}
 function resize(){const r=canvas.getBoundingClientRect();width=r.width;height=r.height;dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=Math.max(1,Math.round(width*dpr));canvas.height=Math.max(1,Math.round(height*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);dirty=true;requestAnimationFrame(draw)}
 function makeSliders(container,items,vals,section){let root=$(container);root.replaceChildren();for(const key of items){const spec=section[key],row=document.createElement('div');row.className='slrow';row.innerHTML=`<div class="slheader"><div class="slname"><span class="colorbar" style="background:${spec.color}"></span><span>${spec.htmlLabel||spec.label}</span><span class="sldesc">${spec.description}</span></div><output class="slval" id="val-${key}"></output></div><label class="sr-only" for="slider-${key}">${spec.label} ${spec.description}</label><input type="range" id="slider-${key}" min="${spec.min}" max="${spec.max}" step="${spec.step}" value="${vals[key]}" style="--accent:${spec.color}" aria-label="${spec.label} ${spec.description}">`;root.append(row);row.querySelector('input').addEventListener('input',ev=>{stopDemo();vals[key]=Number(ev.target.value);setSlider(key,spec,vals[key]);updateMetrics();document.querySelectorAll('.preset').forEach(e=>e.classList.remove('selected'));dirty=true;requestAnimationFrame(draw)})}updateAllInputs()}
 function setSlider(key,spec,val){let inp=$('slider-'+key),out=$('val-'+key);if(!inp||!out)return;inp.value=val;inp.style.setProperty('--progress',((val-spec.min)/(spec.max-spec.min)*100)+'%');out.textContent=`${val>0?'+':''}${fmt(val)} ${spec.unit}`}
 function updateAllInputs(){for(const [k,s] of Object.entries(specs))setSlider(k,s,load[k]);for(const [k,s] of Object.entries(poseSpecs))setSlider(k,s,motion[k])}
-function updateMetrics(){let m=$('metrics');if(mode==='load'){
+function updateMetrics(){let m=$('metrics');if(mode==='result'){m.innerHTML='<div class="metric"><strong>'+fmt(norm(sumF))+' <small style="font-size:12px">kN</small></strong><span>||ΣF||</span></div><div class="metric"><strong>'+fmt(norm(sumM))+' <small style="font-size:12px">kN·m</small></strong><span>||ΣM||</span></div>';return}
+ if(mode==='load'){
  let magF=Math.hypot(load.Fx,load.Fy,load.Fz),magM=Math.hypot(load.Mx,load.My,load.Mz);m.innerHTML=`<div class="metric"><strong>${fmt(magF)} <small style="font-size:12px">kN</small></strong><span>||F|| · besar gaya</span></div><div class="metric"><strong>${fmt(magM)} <small style="font-size:12px">kN·m</small></strong><span>||M|| · besar momen</span></div>`;
  }else{m.innerHTML=`<div class="metric"><strong>${fmt(Math.hypot(motion.x,motion.y,motion.z))} <small style="font-size:12px">m</small></strong><span>besar perpindahan</span></div><div class="metric"><strong>${fmt(motion.roll)}° / ${fmt(motion.pitch)}° / ${fmt(motion.yaw)}°</strong><span>roll / pitch / yaw</span></div>`}
 }
-function setMode(next){stopDemo();mode=next;document.querySelectorAll('.tab').forEach(b=>{let active=b.dataset.mode===next;b.classList.toggle('active',active);b.setAttribute('aria-selected',active?'true':'false')});for(const id of ['load','motion']){const e=$('mode-'+id);const active=id===next;e.classList.toggle('active',active);e.hidden=!active}
+function setMode(next){stopDemo();mode=next;document.querySelectorAll('.tab').forEach(b=>{let active=b.dataset.mode===next;b.classList.toggle('active',active);b.setAttribute('aria-selected',active?'true':'false')});for(const id of ['load','motion','result']){const e=$('mode-'+id);const active=id===next;e.classList.toggle('active',active);e.hidden=!active}
  $('ctitle').textContent=next==='load'?'Atur enam komponen beban':'Atur enam derajat kebebasan';
  $('csubtitle').textContent=next==='load'?'Tiga gaya (kN) dan tiga momen (kN·m). Nilai negatif membalik arah vektor atau putaran.':'Atur perpindahan (meter) dan sudut rotasi (derajat). Kapal bergerak sebagai visualisasi kinematik.';
  $('viewtitle').textContent=next==='load'?'Diagram 3D · Vektor beban kapal':'Diagram 3D · Gerakan kapal (6 DOF)';
@@ -159,12 +194,98 @@ function setMode(next){stopDemo();mode=next;document.querySelectorAll('.tab').fo
  $('formula-caption').textContent=next==='load'?'Komponen F adalah gaya (kN). Komponen M adalah momen (kN·m) terhadap titik acuan yang sama. Arah momen mengikuti aturan tangan kanan.':'Tiga koordinat translasi dan tiga sudut orientasi merepresentasikan enam derajat kebebasan. Gerak kinematik ini tidak menunjukkan hukum Newton ataupun respons hidrodinamik.';
  $('questions').innerHTML=next==='load'?'<li>Pilih <strong>Sway</strong>. Perhatikan arah Fᵧ terhadap badan kapal.</li><li>Pilih <strong>Yaw</strong>. Bandingkan arah melingkar M<sub>z</sub> dengan F<sub>y</sub>.</li><li>Gabungkan F<sub>x</sub>, F<sub>y</sub>, dan M<sub>z</sub>. Jelaskan mengapa ada dua jenis satuan yang berbeda.</li>':'<li>Pilih <strong>Surge</strong> lalu <strong>Sway</strong>. Bandingkan kedua arah translasi.</li><li>Pilih <strong>Roll</strong>, <strong>Pitch</strong>, dan <strong>Yaw</strong> satu per satu. Tentukan sumbu rotasi masing-masing.</li><li>Atur dua sudut sekaligus. Amati perubahan orientasi kapal dari sudut pandang atas dan depan.</li>';
  $('legend').innerHTML=next==='load'?'<div class="legend"><span class="dot" style="background:var(--fx)"></span>Gaya (F)</div><div class="legend"><span class="dot" style="background:var(--mx)"></span>Momen (M)</div><div class="legend"><span class="dot" style="background:#a3b7bc"></span>Sumbu kapal</div>':'<div class="legend"><span class="dot" style="background:var(--fx)"></span>Translasi</div><div class="legend"><span class="dot" style="background:var(--mx)"></span>Rotasi</div><div class="legend"><span class="dot" style="background:#a3b7bc"></span>Posisi awal</div>';
+ $('old-actions').hidden=next==='result';
+ if(next==='result'){
+  $('ctitle').textContent='Resultan tiga gaya pada kapal';
+  $('csubtitle').textContent='Tiga gaya, titik kerja berbeda, resultan dan animasi gabungan.';
+  $('viewtitle').textContent='Diagram 3D · Resultan dan respons';
+  $('readout-title').textContent='Besaran resultan secara terpisah';
+  $('mathnote').innerHTML='<strong>Model ilustratif:</strong> massa kapal 600 ton, momen inersia diagonal (10.000; 25.000; 30.000) ton·m², gaya konstan dalam sumbu awal. Perpindahan = ½(ΣF/m)t²; sudut ≈ ½(I⁻¹ΣM)t². Model tanpa gaya apung, redaman atau hidrodinamika; bukan prediksi gerak kapal nyata.';
+  $('formula').innerHTML='F<sub>R</sub> = Σ F<sub>i</sub>; &nbsp; M<sub>R</sub> = Σ (r<sub>i</sub> × F<sub>i</sub>)';
+  $('formula-caption').textContent='r diukur dari titik O (m), F dalam kN dan M dalam kN·m. Gerak simulasi memakai pendekatan benda tegar terdekopel.';
+  $('questions').innerHTML='<li>Jalankan preset translasi + rotasi. Jelaskan gerakan yang terjadi bersamaan.</li><li>Pilih ΣF = 0, ΣM ≠ 0. Mengapa kapal tetap berotasi?</li><li>Geser satu titik kerja r dan amati perubahan ΣM.</li>';
+  $('legend').innerHTML='<div class="legend"><span class="dot" style="background:#497bc3"></span>Gaya Fᵢ</div><div class="legend"><span class="dot" style="background:#087e85"></span>ΣF</div><div class="legend"><span class="dot" style="background:#b55985"></span>ΣM (aksial)</div>';
+ }
  document.querySelectorAll('.preset').forEach(e=>e.classList.remove('selected'));updateMetrics();dirty=true;requestAnimationFrame(draw)}
 function choosePreset(kind,key,target){stopDemo();let set=kind==='load'?load:motion,keys=Object.keys(set);for(const k of keys)set[k]=0;set[key]=kind==='load'?(key.startsWith('F')?65:200):({x:13,y:9,z:4,roll:20,pitch:14,yaw:30}[key]);updateAllInputs();updateMetrics();document.querySelectorAll('.preset').forEach(e=>e.classList.toggle('selected',e===target));dirty=true;requestAnimationFrame(draw)}
 function stopDemo(){playing=false;lastFrame=0;$('demo').textContent='▶ Demo enam arah'}
+
+function resultMarkers(){
+ if(mode!=='result')return;
+ const palette=['#376fae','#cb8834','#855ec0'];
+ applied.forEach((item,i)=>{
+  if(norm(item.f)<.001)return;
+  const p=poseP([item.r[0]*.45,item.r[1]*.45,.78+item.r[2]*.35]);
+  const q=add(p,mul(item.f,.025));screenArrow(p,q,palette[i],3.3);label(q,'F'+(i+1),palette[i],4,-8);
+ });
+ const p=poseP([0,0,2.0]);
+ if(norm(sumF)>.001){const q=add(p,mul(sumF,.03));screenArrow(p,q,'#087e85',5);label(q,'ΣF','#087e85',8,-9)}
+ if(norm(sumM)>.001){const q=add(p,mul(sumM,.006));screenArrow(p,q,'#b55985',4);label(q,'ΣM aksial','#b55985',8,16)}
+}
+function renderResult(){
+ sumF=[0,0,0];sumM=[0,0,0];
+ for(const a of applied){sumF=add(sumF,a.f);sumM=add(sumM,cross(a.r,a.f))}
+ const fmtv=a=>'('+a.map(fmt).join('; ')+')';
+ $('result-vectors').innerHTML='<div class="vectorline">ΣF = '+fmtv(sumF)+' kN</div><div class="vectorline">ΣM = '+fmtv(sumM)+' kN·m</div><div class="vectorline">τ = '+fmtv(sumF.concat(sumM))+'ᵀ</div>';
+ const f=norm(sumF)>1e-8,m=norm(sumM)>1e-8;
+ $('result-class').textContent=f&&m?'Resultan menyebabkan percepatan translasi dan rotasi.':f?'Resultan momen nol; hanya ada percepatan translasi.':m?'Resultan gaya nol, tetapi tetap ada momen penyebab rotasi.':'Resultan gaya dan momen nol.';
+ updateResponse();updateMetrics();dirty=true;requestAnimationFrame(draw);
+}
+function updateResponse(){
+ const t2=simTime*simTime/2;
+ responsePose.x=sumF[0]/600*t2;responsePose.y=sumF[1]/600*t2;responsePose.z=sumF[2]/600*t2;
+ responsePose.roll=sumM[0]/10000*t2*180/Math.PI;
+ responsePose.pitch=sumM[1]/25000*t2*180/Math.PI;
+ responsePose.yaw=sumM[2]/30000*t2*180/Math.PI;
+ $('response-status').textContent='t = '+fmt(simTime)+' s · Δr = ('+[responsePose.x,responsePose.y,responsePose.z].map(n=>n.toFixed(2)).join('; ')+') m · roll/pitch/yaw = ('+[responsePose.roll,responsePose.pitch,responsePose.yaw].map(fmt).join('°; ')+ '°)';
+}
+function stopResponse(){simPlaying=false;simLast=0;$('response-play').textContent='▶ '+(simTime>=8?'Putar ulang':'Jalankan gerak gabungan')}
+function resetResponse(){stopResponse();simTime=0;updateResponse();dirty=true;requestAnimationFrame(draw)}
+function animateResponse(ts){
+ if(!simPlaying||mode!=='result')return;
+ if(simLast)simTime=Math.min(8,simTime+Math.min(.06,(ts-simLast)/1000));
+ simLast=ts;updateResponse();dirty=true;draw(ts);
+ if(simTime>=8){stopResponse();return}
+ requestAnimationFrame(animateResponse);
+}
+function chooseResultCase(id,btn){
+ const c=cases[id];if(!c)return;resetResponse();
+ c.forEach((f,i)=>{applied[i].r=f[0].slice();applied[i].f=f[1].slice()});
+ document.querySelectorAll('#applied-forces input').forEach(inp=>{inp.value=applied[Number(inp.dataset.i)][inp.dataset.field][Number(inp.dataset.j)]});
+ document.querySelectorAll('[data-case]').forEach(b=>b.classList.toggle('selected',b===btn));
+ renderResult();
+}
+function buildResultControls(){
+ const root=$('applied-forces');
+ applied.forEach((item,i)=>{
+  const card=document.createElement('div');card.className='forcecard';
+  const head=document.createElement('h3');head.textContent='F'+(i+1);card.append(head);
+  for(const field of ['r','f']){
+   const row=document.createElement('div');row.className='triple';
+   ['x','y','z'].forEach((axis,j)=>{
+    const label=document.createElement('label');label.textContent=(field==='r'?'r':'F')+axis+' ('+(field==='r'?'m':'kN')+')';
+    const input=document.createElement('input');input.type='number';input.step=field==='r'?1:5;
+    input.min=field==='r'?-8:-100;input.max=field==='r'?8:100;input.value=item[field][j];input.dataset.i=i;input.dataset.field=field;input.dataset.j=j;
+    input.setAttribute('aria-label','Gaya '+(i+1)+' '+field+' '+axis);
+    input.addEventListener('input',()=>{
+     if(input.value.trim()==='')return;const n=Number(input.value);if(!Number.isFinite(n))return;
+     item[field][j]=clamp(n,Number(input.min),Number(input.max));
+     resetResponse();renderResult();document.querySelectorAll('[data-case]').forEach(b=>b.classList.remove('selected'));
+    });
+    label.append(input);row.append(label);
+   });card.append(row);
+  }
+  root.append(card);
+ });
+}
+
 function setCamera(which){viewPreset=which;if(which==='perspective'){az=rad(-110);el=rad(32)}else if(which==='top'){az=rad(-90);el=rad(89)}else if(which==='side'){az=rad(-90);el=rad(5)}else if(which==='front'){az=rad(0);el=rad(10)}document.querySelectorAll('[data-camera]').forEach(b=>b.classList.toggle('active',b.dataset.camera===which));dirty=true;requestAnimationFrame(draw)}
+buildResultControls();renderResult();
 makeSliders('force-controls',['Fx','Fy','Fz'],load,specs);makeSliders('moment-controls',['Mx','My','Mz'],load,specs);makeSliders('translation-controls',['x','y','z'],motion,poseSpecs);makeSliders('rotation-controls',['roll','pitch','yaw'],motion,poseSpecs);
-document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>setMode(btn.dataset.mode)));
+document.querySelectorAll('[data-case]').forEach(btn=>btn.addEventListener('click',()=>chooseResultCase(btn.dataset.case,btn)));
+$('response-play').addEventListener('click',()=>{if(simTime>=8)simTime=0;simPlaying=!simPlaying;simLast=0;$('response-play').textContent=simPlaying?'❚❚ Jeda respons':'▶ Lanjutkan respons';if(simPlaying)requestAnimationFrame(animateResponse);else dirty=true;requestAnimationFrame(draw)});
+$('response-restart').addEventListener('click',resetResponse);
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.mode!=='result')stopResponse();setMode(btn.dataset.mode)}));
 document.querySelectorAll('[data-camera]').forEach(btn=>btn.addEventListener('click',()=>setCamera(btn.dataset.camera)));
 document.querySelectorAll('[data-load-preset]').forEach(btn=>btn.addEventListener('click',()=>choosePreset('load',btn.dataset.loadPreset,btn)));
 document.querySelectorAll('[data-motion-preset]').forEach(btn=>btn.addEventListener('click',()=>choosePreset('motion',btn.dataset.motionPreset,btn)));
